@@ -4,14 +4,10 @@ plugins {
 
 android {
     namespace = "com.example.thecorner"
-    compileSdk {
-        version = release(36) {
-            minorApiLevel = 1
-        }
+    compileSdk = 37
 
-        buildFeatures {
-            viewBinding = true
-        }
+    buildFeatures {
+        viewBinding = true
     }
 
     defaultConfig {
