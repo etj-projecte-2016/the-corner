@@ -14,8 +14,18 @@
     <fragment
         android:id="@+id/trainingFragment"
         android:name="com.example.thecorner.ui.training.TrainingFragment"
-        android:label="Training"
-        tools:layout="@layout/fragment_training" />
+        android:label="TrainingFragment">
+
+        <action
+            android:id="@+id/action_trainingFragment_to_editWorkoutFragment"
+            app:destination="@id/editWorkoutFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/editWorkoutFragment"
+        android:name="com.example.thecorner.ui.training.edit.EditWorkoutFragment"
+        android:label="EditWorkoutFragment" />
 
     <fragment
         android:id="@+id/aiFragment"

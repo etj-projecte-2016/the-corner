@@ -2,4 +2,93 @@
     <string name="app_name">The Corner</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- Home - Header -->
+    <string name="home_app_title">THE CORNER</string>
+    <string name="home_greeting_evening">Good evening,</string>
+    <string name="home_motivation">Ready for your next round?</string>
+    <string name="home_user_name">Eric</string>
+
+    <!-- Home - Weekly stats -->
+    <string name="home_this_week">THIS WEEK</string>
+    <string name="home_sessions">SESSIONS</string>
+    <string name="home_minutes_average">MIN AVG.</string>
+    <string name="home_calories_average">KCAL AVG.</string>
+    <string name="home_bag_rounds">BAG ROUNDS</string>
+
+    <!-- Home - Last session -->
+    <string name="home_last_session">LAST SESSION</string>
+    <string name="home_boxing">BOXING</string>
+    <string name="home_no_session">NO SESSION YET</string>
+    <string name="home_start_first_workout">Start your first workout</string>
+    <string name="home_minutes">MIN</string>
+    <string name="home_calories">KCAL</string>
+    <string name="home_rounds">ROUNDS</string>
+
+    <!-- Home - Weekly activity -->
+    <string name="home_weekly_activity">WEEKLY ACTIVITY</string>
+
+    <!-- Days -->
+    <string name="day_monday_short">MON</string>
+    <string name="day_tuesday_short">TUE</string>
+    <string name="day_wednesday_short">WED</string>
+    <string name="day_thursday_short">THU</string>
+    <string name="day_friday_short">FRI</string>
+    <string name="day_saturday_short">SAT</string>
+    <string name="day_sunday_short">SUN</string>
+
+    <!-- Format Days -->
+    <string name="home_date_today">Today · %1$s</string>
+    <string name="home_date_yesterday">Yesterday · %1$s</string>
+    <string name="home_date_regular">%1$s · %2$s</string>
+
+    <string name="home_boxing_image">Boxing training</string>
+    <string name="home_last_session_image">Boxing gloves</string>
+
+
+    <string name="home_app_title_the">THE </string>
+    <string name="home_app_title_corner">CORNER</string>
+
+    <string name="home_average_duration">AVG. DURATION</string>
+    <string name="home_average_calories">AVG. CALORIES</string>
+    <string name="home_bag_average">BAG AVG.</string>
+
+    <!-- Training -->
+    <string name="training_title">TRAINING</string>
+    <string name="training_subtitle">Review and start</string>
+
+    <string name="training_session_summary">SESSION SUMMARY</string>
+
+    <string name="training_round">ROUND</string>
+    <string name="training_rest">REST</string>
+    <string name="training_rounds">ROUNDS</string>
+
+    <string name="training_round_duration">Round duration</string>
+    <string name="training_rest_duration">Rest duration</string>
+
+    <string name="training_estimated_duration">Estimated total duration</string>
+    <string name="training_estimated_calories">Estimated calories</string>
+
+    <string name="training_edit_session">EDIT SESSION</string>
+    <string name="training_start_workout">START WORKOUT</string>
+
+    <string name="training_punching_bag">Punching bag</string>
+
+    <string name="training_calories_format">%1$d kcal</string>
+
+    <!-- Edit workout -->
+    <string name="edit_workout_title">Edit session</string>
+    <string name="edit_save">Save</string>
+    <string name="edit_close">×</string>
+
+    <string name="edit_round_duration">Round duration</string>
+    <string name="edit_rest_duration">Rest between rounds</string>
+    <string name="edit_rounds">Number of rounds</string>
+
+    <string name="edit_minus">−</string>
+    <string name="edit_plus">+</string>
+
+    <string name="edit_summary">SUMMARY</string>
+    <string name="edit_legend_round">Round</string>
+    <string name="edit_legend_rest">Rest</string>
 </resources>

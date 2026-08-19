@@ -1,0 +1,423 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/corner_background"
+    android:fillViewport="true"
+    tools:context=".ui.training.edit.EditWorkoutFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingStart="12dp"
+        android:paddingTop="16dp"
+        android:paddingEnd="12dp"
+        android:paddingBottom="100dp">
+
+
+        <!-- ===================================================== -->
+        <!-- TOP BAR -->
+        <!-- ===================================================== -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/btnCloseEdit"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:text="@string/edit_close"
+                android:textColor="@color/corner_text_primary"
+                android:textSize="22sp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/edit_workout_title"
+                android:textColor="@color/corner_text_primary"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/btnSaveWorkoutSetup"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:paddingStart="8dp"
+                android:paddingEnd="4dp"
+                android:text="@string/edit_save"
+                android:textColor="@color/corner_red"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+
+        <!-- ===================================================== -->
+        <!-- ROUND DURATION -->
+        <!-- ===================================================== -->
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="82dp"
+            android:layout_marginTop="8dp"
+            app:cardBackgroundColor="@color/corner_surface"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="0dp"
+            app:strokeColor="@color/corner_card_border"
+            app:strokeWidth="1dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="14dp"
+                android:paddingEnd="14dp">
+
+                <ImageView
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:contentDescription="@string/edit_round_duration"
+                    android:src="@drawable/ic_timer"
+                    app:tint="@color/corner_text_primary" />
+
+                <TextView
+                    android:id="@+id/btnRoundMinus"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_marginStart="14dp"
+                    android:background="@drawable/bg_edit_circle"
+                    android:gravity="center"
+                    android:text="@string/edit_minus"
+                    android:textColor="@color/corner_text_primary"
+                    android:textSize="20sp" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/edit_round_duration"
+                        android:textColor="@color/corner_text_secondary"
+                        android:textSize="11sp" />
+
+                    <TextView
+                        android:id="@+id/tvEditRoundDuration"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:textColor="@color/corner_text_primary"
+                        android:textSize="28sp"
+                        android:textStyle="bold"
+                        tools:text="3:00" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/btnRoundPlus"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:background="@drawable/bg_edit_circle"
+                    android:gravity="center"
+                    android:text="@string/edit_plus"
+                    android:textColor="@color/corner_text_primary"
+                    android:textSize="20sp" />
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+
+        <!-- ===================================================== -->
+        <!-- REST DURATION -->
+        <!-- ===================================================== -->
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="82dp"
+            android:layout_marginTop="6dp"
+            app:cardBackgroundColor="@color/corner_surface"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="0dp"
+            app:strokeColor="@color/corner_card_border"
+            app:strokeWidth="1dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="14dp"
+                android:paddingEnd="14dp">
+
+                <ImageView
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:contentDescription="@string/edit_rest_duration"
+                    android:src="@drawable/ic_rest"
+                    app:tint="@color/corner_text_primary" />
+
+                <TextView
+                    android:id="@+id/btnRestMinus"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_marginStart="14dp"
+                    android:background="@drawable/bg_edit_circle"
+                    android:gravity="center"
+                    android:text="@string/edit_minus"
+                    android:textColor="@color/corner_text_primary"
+                    android:textSize="20sp" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/edit_rest_duration"
+                        android:textColor="@color/corner_text_secondary"
+                        android:textSize="11sp" />
+
+                    <TextView
+                        android:id="@+id/tvEditRestDuration"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:textColor="@color/corner_text_primary"
+                        android:textSize="28sp"
+                        android:textStyle="bold"
+                        tools:text="1:00" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/btnRestPlus"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:background="@drawable/bg_edit_circle"
+                    android:gravity="center"
+                    android:text="@string/edit_plus"
+                    android:textColor="@color/corner_text_primary"
+                    android:textSize="20sp" />
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+
+        <!-- ===================================================== -->
+        <!-- NUMBER OF ROUNDS -->
+        <!-- ===================================================== -->
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="82dp"
+            android:layout_marginTop="6dp"
+            app:cardBackgroundColor="@color/corner_surface"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="0dp"
+            app:strokeColor="@color/corner_card_border"
+            app:strokeWidth="1dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="14dp"
+                android:paddingEnd="14dp">
+
+                <ImageView
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:contentDescription="@string/edit_rounds"
+                    android:src="@drawable/ic_boxing_glove"
+                    app:tint="@color/corner_text_primary" />
+
+                <TextView
+                    android:id="@+id/btnRoundsMinus"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_marginStart="14dp"
+                    android:background="@drawable/bg_edit_circle"
+                    android:gravity="center"
+                    android:text="@string/edit_minus"
+                    android:textColor="@color/corner_text_primary"
+                    android:textSize="20sp" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/edit_rounds"
+                        android:textColor="@color/corner_text_secondary"
+                        android:textSize="11sp" />
+
+                    <TextView
+                        android:id="@+id/tvEditRounds"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:textColor="@color/corner_text_primary"
+                        android:textSize="28sp"
+                        android:textStyle="bold"
+                        tools:text="10" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/btnRoundsPlus"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:background="@drawable/bg_edit_circle"
+                    android:gravity="center"
+                    android:text="@string/edit_plus"
+                    android:textColor="@color/corner_text_primary"
+                    android:textSize="20sp" />
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+
+        <!-- ===================================================== -->
+        <!-- SUMMARY -->
+        <!-- ===================================================== -->
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            app:cardBackgroundColor="@color/corner_surface"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="0dp"
+            app:strokeColor="@color/corner_card_border"
+            app:strokeWidth="1dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="14dp">
+
+
+                <!-- SUMMARY HEADER -->
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/edit_summary"
+                        android:textColor="@color/corner_text_primary"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tvEditSummary"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/corner_text_primary"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        tools:text="39:00 · 450 kcal" />
+
+                </LinearLayout>
+
+
+                <!--
+                    Los bloques de Round / Rest se generarán
+                    dinámicamente desde Kotlin.
+                -->
+
+                <LinearLayout
+                    android:id="@+id/roundPreviewContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="14dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal" />
+
+
+                <!-- LEGEND -->
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <!-- ROUND -->
+
+                    <View
+                        android:layout_width="10dp"
+                        android:layout_height="10dp"
+                        android:background="@color/corner_red" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="6dp"
+                        android:text="@string/edit_legend_round"
+                        android:textColor="@color/corner_text_secondary"
+                        android:textSize="10sp" />
+
+
+                    <!-- REST -->
+
+                    <View
+                        android:layout_width="10dp"
+                        android:layout_height="10dp"
+                        android:layout_marginStart="16dp"
+                        android:background="@color/corner_outline" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="6dp"
+                        android:text="@string/edit_legend_rest"
+                        android:textColor="@color/corner_text_secondary"
+                        android:textSize="10sp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>

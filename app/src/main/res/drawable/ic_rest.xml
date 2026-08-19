@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+
+    <!-- Cup -->
+    <path
+        android:fillColor="@android:color/white"
+        android:pathData="M4,9H17V14C17,17.31 14.31,20 11,20H10C6.69,20 4,17.31 4,14V9Z" />
+
+    <!-- Handle -->
+    <path
+        android:fillColor="@android:color/transparent"
+        android:strokeColor="@android:color/white"
+        android:strokeWidth="2"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M17,11H18.5C20.43,11 22,12.57 22,14.5C22,16.43 20.43,18 18.5,18H16" />
+
+    <!-- Steam -->
+    <path
+        android:fillColor="@android:color/transparent"
+        android:strokeColor="@android:color/white"
+        android:strokeWidth="1.7"
+        android:strokeLineCap="round"
+        android:pathData="M8,6C7,5 7,4 8,3" />
+
+    <path
+        android:fillColor="@android:color/transparent"
+        android:strokeColor="@android:color/white"
+        android:strokeWidth="1.7"
+        android:strokeLineCap="round"
+        android:pathData="M12,6C11,5 11,4 12,3" />
+
+    <path
+        android:fillColor="@android:color/transparent"
+        android:strokeColor="@android:color/white"
+        android:strokeWidth="1.7"
+        android:strokeLineCap="round"
+        android:pathData="M16,6C15,5 15,4 16,3" />
+
+</vector>

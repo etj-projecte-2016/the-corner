@@ -15,7 +15,7 @@ class WorkoutRepository(
         workoutDao.insertWorkout(workout.toEntity())
     }
 
-    suspend fun getAllWorkouts(): Flow<List<Workout>> {
+     fun getAllWorkouts(): Flow<List<Workout>> {
         return workoutDao.getAllWorkouts()
             .map { workouts ->
                 workouts.map { it.toDomain() }
