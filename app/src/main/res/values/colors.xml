@@ -5,4 +5,14 @@
     <color name="light_gray">#F4F4F4</color>
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
+    <color name="corner_background">#0A0A0A</color>
+    <color name="corner_surface">#141414</color>
+    <color name="corner_surface_variant">#1C1C1C</color>
+
+    <color name="corner_red">#EF2B2D</color>
+    <color name="corner_red_dark">#C91F21</color>
+
+    <color name="corner_text_primary">#F5F5F5</color>
+    <color name="corner_text_secondary">#A5A5A5</color>
+    <color name="corner_outline">#343434</color>
 </resources>
