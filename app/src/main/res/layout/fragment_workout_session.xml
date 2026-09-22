@@ -1,0 +1,487 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/corner_background"
+    tools:context=".ui.training.session.WorkoutSessionFragment">
+
+
+    <!-- ====================================================== -->
+    <!-- ROUND / REST FULL SCREEN BACKGROUND -->
+    <!-- ====================================================== -->
+
+    <ImageView
+        android:id="@+id/ivSessionBackground"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:alpha="0.55"
+        android:contentDescription="@null"
+        android:scaleType="centerCrop"
+        android:src="@drawable/session_grunge_background"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:visibility="visible" />
+
+
+    <!-- ====================================================== -->
+    <!-- COUNTDOWN / FIGHT FULL SCREEN -->
+    <!--
+         IMPORTANTE:
+         Está FUERA de sessionContent.
+         Por tanto no recibe ningún padding.
+    -->
+    <!-- ====================================================== -->
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/countdownContainer"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:visibility="visible">
+
+
+        <!-- ================================================== -->
+        <!-- BOXER: 3 / 2 / 1 -->
+        <!-- ================================================== -->
+
+        <ImageView
+            android:id="@+id/ivCountdownBoxer"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:alpha="0.22"
+            android:contentDescription="@null"
+            android:scaleType="centerCrop"
+            android:src="@drawable/countdown_boxer"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+
+        <!-- ================================================== -->
+        <!-- BAG: FIGHT -->
+        <!-- ================================================== -->
+
+        <ImageView
+            android:id="@+id/ivFightBag"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:alpha="0.18"
+            android:contentDescription="@null"
+            android:scaleType="centerCrop"
+            android:src="@drawable/bag"
+            android:visibility="gone"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+
+        <!-- ================================================== -->
+        <!-- GET READY -->
+        <!-- ================================================== -->
+
+        <TextView
+            android:id="@+id/tvCountdownReady"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="48dp"
+            android:fontFamily="sans-serif-condensed"
+            android:letterSpacing="0.08"
+            android:text="GET READY"
+            android:textColor="@color/corner_text_primary"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/tvCountdownMain"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+
+        <!-- ================================================== -->
+        <!-- 3 / 2 / 1 / FIGHT -->
+        <!-- ================================================== -->
+
+        <TextView
+            android:id="@+id/tvCountdownMain"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-condensed"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:maxLines="1"
+            android:text="3"
+            android:textColor="@color/corner_text_primary"
+            android:textSize="250sp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="3" />
+
+
+        <!-- ================================================== -->
+        <!-- COUNTDOWN STEPS -->
+        <!-- ================================================== -->
+
+        <LinearLayout
+            android:id="@+id/countdownStepsContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="54dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@id/tvCountdownMain"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+
+            <TextView
+                android:id="@+id/tvCountdownStep3"
+                android:layout_width="58dp"
+                android:layout_height="58dp"
+                android:background="@drawable/bg_countdown_step"
+                android:gravity="center"
+                android:text="3"
+                android:textColor="@color/corner_text_secondary"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+
+            <View
+                android:layout_width="44dp"
+                android:layout_height="2dp"
+                android:background="@color/corner_outline" />
+
+
+            <TextView
+                android:id="@+id/tvCountdownStep2"
+                android:layout_width="58dp"
+                android:layout_height="58dp"
+                android:background="@drawable/bg_countdown_step"
+                android:gravity="center"
+                android:text="2"
+                android:textColor="@color/corner_text_secondary"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+
+            <View
+                android:layout_width="44dp"
+                android:layout_height="2dp"
+                android:background="@color/corner_outline" />
+
+
+            <TextView
+                android:id="@+id/tvCountdownStep1"
+                android:layout_width="58dp"
+                android:layout_height="58dp"
+                android:background="@drawable/bg_countdown_step"
+                android:gravity="center"
+                android:text="1"
+                android:textColor="@color/corner_text_secondary"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+
+        </LinearLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <!-- ====================================================== -->
+    <!-- NORMAL SESSION CONTENT -->
+    <!--
+         Solo la UI normal tiene padding.
+    -->
+    <!-- ====================================================== -->
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/sessionContent"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:paddingStart="18dp"
+        android:paddingTop="24dp"
+        android:paddingEnd="18dp"
+        android:paddingBottom="16dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+
+        <!-- ================================================== -->
+        <!-- ROUND HEADER -->
+        <!-- ================================================== -->
+
+        <LinearLayout
+            android:id="@+id/roundHeaderContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:orientation="vertical"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+
+            <TextView
+                android:id="@+id/tvRoundLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-condensed"
+                android:letterSpacing="0.04"
+                android:text="ROUND"
+                android:textColor="@color/corner_text_primary"
+                android:textSize="23sp"
+                android:textStyle="bold" />
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    android:id="@+id/tvCurrentRound"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-condensed"
+                    android:text="1"
+                    android:textColor="@color/corner_red"
+                    android:textSize="29sp"
+                    android:textStyle="bold" />
+
+
+                <TextView
+                    android:id="@+id/tvTotalRounds"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="7dp"
+                    android:fontFamily="sans-serif-condensed"
+                    android:text="/ 10"
+                    android:textColor="@color/corner_text_primary"
+                    android:textSize="27sp"
+                    android:textStyle="bold" />
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+        <!-- ================================================== -->
+        <!-- CENTRAL SESSION AREA -->
+        <!-- ================================================== -->
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/centerTimerArea"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="12dp"
+            app:layout_constraintTop_toBottomOf="@id/roundHeaderContainer"
+            app:layout_constraintBottom_toTopOf="@id/btnPauseWorkout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+
+            <!-- TIMER -->
+
+            <TextView
+                android:id="@+id/tvSessionTimer"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-condensed"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:maxLines="1"
+                android:text="2:47"
+                android:textColor="@color/corner_text_primary"
+                android:textSize="150sp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/tvSessionPhase"
+                app:layout_constraintVertical_bias="0.42"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:text="2:47" />
+
+
+            <!-- ROUND / REST -->
+
+            <TextView
+                android:id="@+id/tvSessionPhase"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="sans-serif-condensed"
+                android:letterSpacing="0.08"
+                android:text="ROUND"
+                android:textColor="@color/corner_red"
+                android:textSize="28sp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@id/tvSessionTimer"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+
+            <!-- TIMELINE -->
+
+            <LinearLayout
+                android:id="@+id/roundTimelineContainer"
+                android:layout_width="0dp"
+                android:layout_height="86dp"
+                android:layout_marginTop="28dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@id/tvSessionPhase"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+
+            <!-- NEXT -->
+
+            <TextView
+                android:id="@+id/tvNextLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:fontFamily="sans-serif-condensed"
+                android:letterSpacing="0.08"
+                android:text="NEXT"
+                android:textColor="@color/corner_text_secondary"
+                android:textSize="17sp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@id/roundTimelineContainer"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+
+            <LinearLayout
+                android:id="@+id/nextPhaseContainer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@id/tvNextLabel"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+
+                <TextView
+                    android:id="@+id/tvNextPhaseName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-condensed"
+                    android:text="REST"
+                    android:textColor="@color/corner_rest"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+
+                <TextView
+                    android:id="@+id/tvNextPhaseDuration"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:fontFamily="sans-serif-condensed"
+                    android:text="· 1:00"
+                    android:textColor="@color/corner_text_primary"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+
+            </LinearLayout>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <!-- ================================================== -->
+        <!-- PAUSED -->
+        <!-- ================================================== -->
+
+        <TextView
+            android:id="@+id/tvPaused"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:fontFamily="sans-serif-condensed"
+            android:letterSpacing="0.12"
+            android:text="PAUSED"
+            android:textColor="@color/corner_text_secondary"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@id/btnPauseWorkout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+
+        <!-- ================================================== -->
+        <!-- PAUSE -->
+        <!-- ================================================== -->
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnPauseWorkout"
+            style="@style/Widget.Material3.Button"
+            android:layout_width="0dp"
+            android:layout_height="66dp"
+            android:layout_marginBottom="10dp"
+            android:text="PAUSE"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:backgroundTint="@color/corner_red"
+            app:cornerRadius="14dp"
+            app:icon="@drawable/ic_pause"
+            app:iconGravity="textStart"
+            app:iconPadding="12dp"
+            app:iconSize="24dp"
+            app:iconTint="@android:color/white"
+            app:layout_constraintBottom_toTopOf="@id/btnEndWorkout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+
+        <!-- ================================================== -->
+        <!-- END -->
+        <!-- ================================================== -->
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnEndWorkout"
+            style="@style/Widget.Material3.Button"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:text="END WORKOUT"
+            android:textColor="@color/corner_text_primary"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:backgroundTint="@color/corner_surface"
+            app:cornerRadius="14dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

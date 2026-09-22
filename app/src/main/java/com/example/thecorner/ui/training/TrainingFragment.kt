@@ -5,23 +5,28 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.example.thecorner.R
 import com.example.thecorner.databinding.FragmentTrainingBinding
-import kotlinx.coroutines.launch
 
 class TrainingFragment : Fragment() {
 
     private var _binding: FragmentTrainingBinding? = null
+    private val binding get() = _binding!!
 
-    private val binding
-        get() = _binding!!
 
-    private val viewModel: WorkoutSetupViewModel by viewModels()
+    // ============================================================
+    // CURRENT WORKOUT CONFIG
+    // ============================================================
+
+    private var roundDurationSeconds = 180
+    private var restDurationSeconds = 60
+    private var numberOfRounds = 10
+
+
+    // ============================================================
+    // FRAGMENT
+    // ============================================================
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -38,90 +43,200 @@ class TrainingFragment : Fragment() {
         return binding.root
     }
 
+
     override fun onViewCreated(
         view: View,
         savedInstanceState: Bundle?
     ) {
         super.onViewCreated(view, savedInstanceState)
 
-        observeUiState()
+        setupWorkoutConfigResult()
+        setupEditSessionButton()
+        setupStartWorkoutButton()
+
+        updateWorkoutUi()
+    }
+
+
+    // ============================================================
+    // EDIT WORKOUT RESULT
+    // ============================================================
+
+    private fun setupWorkoutConfigResult() {
+
+        parentFragmentManager.setFragmentResultListener(
+            WORKOUT_CONFIG_RESULT,
+            viewLifecycleOwner
+        ) { _, bundle ->
+
+            roundDurationSeconds = bundle.getInt(
+                KEY_ROUND_DURATION,
+                roundDurationSeconds
+            )
+
+            restDurationSeconds = bundle.getInt(
+                KEY_REST_DURATION,
+                restDurationSeconds
+            )
+
+            numberOfRounds = bundle.getInt(
+                KEY_NUMBER_OF_ROUNDS,
+                numberOfRounds
+            )
+
+            updateWorkoutUi()
+        }
+    }
+
+
+    // ============================================================
+    // EDIT SESSION
+    // ============================================================
+
+    private fun setupEditSessionButton() {
 
         binding.btnEditSession.setOnClickListener {
+
             findNavController().navigate(
                 R.id.action_trainingFragment_to_editWorkoutFragment
             )
         }
     }
 
-    private fun observeUiState() {
 
-        viewLifecycleOwner.lifecycleScope.launch {
+    // ============================================================
+    // START WORKOUT
+    // ============================================================
 
-            viewLifecycleOwner.repeatOnLifecycle(
-                Lifecycle.State.STARTED
-            ) {
+    private fun setupStartWorkoutButton() {
 
-                viewModel.uiState.collect { uiState ->
-                    render(uiState)
-                }
+        binding.btnStartWorkout.setOnClickListener {
+
+            val bundle = Bundle().apply {
+
+                putInt(
+                    "roundDurationSeconds",
+                    roundDurationSeconds
+                )
+
+                putInt(
+                    "restDurationSeconds",
+                    restDurationSeconds
+                )
+
+                putInt(
+                    "numberOfRounds",
+                    numberOfRounds
+                )
             }
+
+            findNavController().navigate(
+                R.id.action_trainingFragment_to_workoutSessionFragment,
+                bundle
+            )
         }
     }
 
-    private fun render(
-        uiState: WorkoutSetupUiState
-    ) {
 
-        // Round duration
+    // ============================================================
+    // UPDATE UI
+    // ============================================================
+
+    private fun updateWorkoutUi() {
+
         binding.tvRoundDuration.text =
-            formatDuration(uiState.roundDuration)
+            formatTime(roundDurationSeconds)
 
-        // Rest duration
         binding.tvRestDuration.text =
-            formatDuration(uiState.restDuration)
+            formatTime(restDurationSeconds)
 
-        // Number of rounds
         binding.tvRounds.text =
-            uiState.rounds.toString()
+            numberOfRounds.toString()
 
-
-        // Estimated total workout duration
-        val estimatedDuration =
-            (uiState.roundDuration * uiState.rounds) +
-                    (uiState.restDuration * (uiState.rounds - 1))
-
-        binding.tvEstimatedDuration.text =
-            formatDuration(estimatedDuration)
-
-
-        // Temporary estimation.
-        // We will improve this calculation later.
-        val estimatedCalories = 450
-
-        binding.tvEstimatedCalories.text =
-            getString(
-                R.string.training_calories_format,
-                estimatedCalories
-            )
+        updateEstimatedDuration()
     }
 
-    private fun formatDuration(
-        seconds: Int
-    ): String {
 
-        val minutes = seconds / 60
-        val remainingSeconds = seconds % 60
+    // ============================================================
+    // ESTIMATED DURATION
+    // ============================================================
+
+    private fun updateEstimatedDuration() {
+
+        /*
+         * Ejemplo:
+         *
+         * 10 rounds × 3:00 = 30:00
+         *
+         * Solo hay descanso ENTRE rounds:
+         *
+         * 9 descansos × 1:00 = 9:00
+         *
+         * Total = 39:00
+         */
+
+        val totalRoundSeconds =
+            roundDurationSeconds * numberOfRounds
+
+        val numberOfRests =
+            (numberOfRounds - 1)
+                .coerceAtLeast(0)
+
+        val totalRestSeconds =
+            restDurationSeconds * numberOfRests
+
+        val totalDurationSeconds =
+            totalRoundSeconds + totalRestSeconds
+
+        binding.tvEstimatedDuration.text =
+            formatTime(totalDurationSeconds)
+    }
+
+
+    // ============================================================
+    // FORMAT TIME
+    // ============================================================
+
+    private fun formatTime(totalSeconds: Int): String {
+
+        val minutes = totalSeconds / 60
+        val seconds = totalSeconds % 60
 
         return String.format(
             "%d:%02d",
             minutes,
-            remainingSeconds
+            seconds
         )
     }
+
+
+    // ============================================================
+    // DESTROY VIEW
+    // ============================================================
 
     override fun onDestroyView() {
         super.onDestroyView()
 
         _binding = null
+    }
+
+
+    // ============================================================
+    // RESULT KEYS
+    // ============================================================
+
+    companion object {
+
+        private const val WORKOUT_CONFIG_RESULT =
+            "workoutConfigResult"
+
+        private const val KEY_ROUND_DURATION =
+            "roundDurationSeconds"
+
+        private const val KEY_REST_DURATION =
+            "restDurationSeconds"
+
+        private const val KEY_NUMBER_OF_ROUNDS =
+            "numberOfRounds"
     }
 }

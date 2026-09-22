@@ -20,7 +20,17 @@
             android:id="@+id/action_trainingFragment_to_editWorkoutFragment"
             app:destination="@id/editWorkoutFragment" />
 
+        <action
+            android:id="@+id/action_trainingFragment_to_workoutSessionFragment"
+            app:destination="@id/workoutSessionFragment" />
+
     </fragment>
+
+    <fragment
+        android:id="@+id/workoutSessionFragment"
+        android:name="com.example.thecorner.ui.training.session.WorkoutSessionFragment"
+        android:label="WorkoutSession"
+        tools:layout="@layout/fragment_workout_session" />
 
     <fragment
         android:id="@+id/editWorkoutFragment"

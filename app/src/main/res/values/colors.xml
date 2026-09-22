@@ -16,4 +16,5 @@
     <color name="corner_text_secondary">#A5A5A5</color>
     <color name="corner_outline">#343434</color>
     <color name="corner_card_border">#55FFFFFF</color>
+    <color name="corner_rest">#2196F3</color>
 </resources>
