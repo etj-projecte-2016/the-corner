@@ -91,4 +91,13 @@
     <string name="edit_summary">SUMMARY</string>
     <string name="edit_legend_round">Round</string>
     <string name="edit_legend_rest">Rest</string>
+    <!-- Workout completion -->
+    <string name="session_complete">WORKOUT COMPLETE</string>
+    <string name="session_ended">WORKOUT ENDED</string>
+    <string name="session_not_saved">SESSION NOT SAVED</string>
+    <string name="session_saving">SAVING…</string>
+    <string name="session_save_failed">SAVE FAILED — RETRY</string>
+    <string name="session_retry">RETRY SAVE</string>
+    <string name="session_finish">FINISH</string>
+    <string name="session_rounds">%1$d ROUNDS</string>
 </resources>

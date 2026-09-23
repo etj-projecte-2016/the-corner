@@ -925,8 +925,13 @@ class WorkoutSessionFragment : Fragment() {
 
         restoreNormalSessionUi()
 
-        binding.tvRoundLabel.text =
-            "WORKOUT COMPLETE"
+        binding.tvRoundLabel.setText(
+            if (state.saveStatus == WorkoutSessionViewModel.SaveStatus.NOT_REQUIRED) {
+                R.string.session_ended
+            } else {
+                R.string.session_complete
+            }
+        )
 
         binding.tvCurrentRound.visibility =
             View.GONE
@@ -947,8 +952,12 @@ class WorkoutSessionFragment : Fragment() {
             )
         )
 
-        binding.tvSessionPhase.text =
-            "${state.totalRounds} ROUNDS"
+        binding.tvSessionPhase.text = when (state.saveStatus) {
+            WorkoutSessionViewModel.SaveStatus.NOT_REQUIRED -> getString(R.string.session_not_saved)
+            WorkoutSessionViewModel.SaveStatus.SAVING -> getString(R.string.session_saving)
+            WorkoutSessionViewModel.SaveStatus.FAILED -> getString(R.string.session_save_failed)
+            WorkoutSessionViewModel.SaveStatus.SAVED -> getString(R.string.session_rounds, state.totalRounds)
+        }
 
         binding.tvSessionPhase.setTextColor(
             ContextCompat.getColor(
@@ -975,11 +984,23 @@ class WorkoutSessionFragment : Fragment() {
         binding.btnEndWorkout.visibility =
             View.VISIBLE
 
-        binding.btnEndWorkout.text =
-            "FINISH"
+        binding.btnEndWorkout.isEnabled =
+            state.saveStatus != WorkoutSessionViewModel.SaveStatus.SAVING
+        binding.btnEndWorkout.setText(
+            when (state.saveStatus) {
+                WorkoutSessionViewModel.SaveStatus.SAVING -> R.string.session_saving
+                WorkoutSessionViewModel.SaveStatus.FAILED -> R.string.session_retry
+                else -> R.string.session_finish
+            }
+        )
 
         binding.btnEndWorkout.setOnClickListener {
-            findNavController().navigateUp()
+            when (viewModel.state.value?.saveStatus) {
+                WorkoutSessionViewModel.SaveStatus.FAILED -> viewModel.retrySave()
+                WorkoutSessionViewModel.SaveStatus.SAVED,
+                WorkoutSessionViewModel.SaveStatus.NOT_REQUIRED -> findNavController().navigateUp()
+                else -> Unit
+            }
         }
     }
 

@@ -1,12 +1,28 @@
 package com.example.thecorner.ui.training.session
 
+import android.app.Application
 import android.os.CountDownTimer
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.thecorner.TheCornerApplication
+import com.example.thecorner.model.Workout
+import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.CoroutineStart
+import kotlinx.coroutines.NonCancellable
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import kotlin.math.ceil
 
-class WorkoutSessionViewModel : ViewModel() {
+class WorkoutSessionViewModel(application: Application) : AndroidViewModel(application) {
+
+    private val repository =
+        (application as TheCornerApplication).appContainer.workoutRepository
+
+    enum class SaveStatus { NOT_REQUIRED, SAVING, SAVED, FAILED }
+
+    private var completedWorkout: Workout? = null
 
     enum class Phase {
         PREPARING,
@@ -23,7 +39,8 @@ class WorkoutSessionViewModel : ViewModel() {
         val remainingSeconds: Int = 3,
         val roundDurationSeconds: Int = 180,
         val restDurationSeconds: Int = 60,
-        val isPaused: Boolean = false
+        val isPaused: Boolean = false,
+        val saveStatus: SaveStatus = SaveStatus.NOT_REQUIRED
     )
 
     private val _state = MutableLiveData(SessionState())
@@ -122,7 +139,7 @@ class WorkoutSessionViewModel : ViewModel() {
 
             if (current.currentRound >= current.totalRounds) {
 
-                finishWorkout()
+                completeWorkout()
 
             } else {
 
@@ -275,7 +292,7 @@ class WorkoutSessionViewModel : ViewModel() {
                         latest.currentRound >=
                         latest.totalRounds
                     ) {
-                        finishWorkout()
+                        completeWorkout()
                     } else {
 
                         if (latest.restDurationSeconds > 0) {
@@ -309,6 +326,8 @@ class WorkoutSessionViewModel : ViewModel() {
 
     fun finishWorkout() {
 
+        if (_state.value?.phase == Phase.FINISHED) return
+
         timer?.cancel()
 
         updateState(
@@ -316,6 +335,56 @@ class WorkoutSessionViewModel : ViewModel() {
             remainingSeconds = 0,
             isPaused = false
         )
+    }
+
+    private fun completeWorkout() {
+        val current = _state.value ?: return
+        if (current.phase == Phase.FINISHED) return
+
+        timer?.cancel()
+        completedWorkout = Workout(
+            id = 0,
+            date = System.currentTimeMillis(),
+            duration = current.totalRounds * current.roundDurationSeconds +
+                (current.totalRounds - 1).coerceAtLeast(0) * current.restDurationSeconds,
+            calories = 0, // No calorie estimate is available yet.
+            totalRounds = current.totalRounds,
+            bagRounds = 0, // Session configuration does not classify rounds.
+            sparringRounds = 0,
+            techniqueRounds = 0
+        )
+        _state.value = current.copy(
+            phase = Phase.FINISHED,
+            remainingSeconds = 0,
+            isPaused = false,
+            saveStatus = SaveStatus.SAVING
+        )
+        saveCompletedWorkout()
+    }
+
+    fun retrySave() {
+        val current = _state.value ?: return
+        if (current.saveStatus != SaveStatus.FAILED) return
+        _state.value = current.copy(saveStatus = SaveStatus.SAVING)
+        saveCompletedWorkout()
+    }
+
+    private fun saveCompletedWorkout() {
+        val workout = completedWorkout ?: return
+        // Enter the protected insert immediately, before navigation can clear this ViewModel.
+        viewModelScope.launch(start = CoroutineStart.UNDISPATCHED) {
+            try {
+                // Let this short local write finish even if the user leaves the session.
+                withContext(NonCancellable) {
+                    repository.insertWorkout(workout)
+                }
+                _state.value = _state.value?.copy(saveStatus = SaveStatus.SAVED)
+            } catch (cancelled: CancellationException) {
+                throw cancelled
+            } catch (error: Exception) {
+                _state.value = _state.value?.copy(saveStatus = SaveStatus.FAILED)
+            }
+        }
     }
 
 
