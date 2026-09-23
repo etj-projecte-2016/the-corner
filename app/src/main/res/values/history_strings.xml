@@ -1,0 +1,33 @@
+<resources>
+    <string name="history_title">TRAINING HISTORY</string>
+    <string name="history_details_title">SESSION DETAILS</string>
+    <string name="history_back">Back</string>
+    <string name="history_view_all">VIEW ALL →</string>
+    <string name="history_all">ALL</string>
+    <string name="history_bag">BAG</string>
+    <string name="history_pads">PADS</string>
+    <string name="history_shadow">SHADOW</string>
+    <string name="history_sparring">SPARRING</string>
+    <string name="history_empty_title">NO SESSIONS YET</string>
+    <string name="history_empty_body">Your completed sessions will appear here.</string>
+    <string name="history_filter_empty_title">NO MATCHING SESSIONS</string>
+    <string name="history_filter_empty_body">No completed sessions of this type yet. Try another filter.</string>
+    <string name="history_error_title">UNABLE TO LOAD SESSIONS</string>
+    <string name="history_error_body">Please try again.</string>
+    <string name="history_retry">RETRY</string>
+    <string name="history_missing_title">SESSION NOT FOUND</string>
+    <string name="history_missing_body">This session is no longer available.</string>
+    <string name="history_minutes">%1$d min</string>
+    <string name="history_minutes_seconds">%1$d min %2$d sec</string>
+    <string name="history_date_time">%1$s · %2$s</string>
+    <string name="history_session_summary">%1$s · %2$s</string>
+    <plurals name="history_rounds">
+        <item quantity="one">%d round</item>
+        <item quantity="other">%d rounds</item>
+    </plurals>
+    <string name="history_date_label">Date</string>
+    <string name="history_time_label">Completed at</string>
+    <string name="history_duration_label">Total duration</string>
+    <string name="history_rounds_label">Rounds</string>
+    <string name="history_duration_note">Training time includes work and rests between rounds, excluding preparation and pauses.</string>
+</resources>

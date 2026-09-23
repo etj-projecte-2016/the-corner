@@ -11,10 +11,14 @@ interface WorkoutDao {
     @Insert
     suspend fun insertWorkout(workout: WorkoutEntity)
 
-    @Query("SELECT * FROM workouts ORDER BY date DESC")
+    // Only naturally completed sessions are inserted by WorkoutSessionViewModel.
+    @Query("SELECT * FROM workouts ORDER BY date DESC, id DESC")
     fun getAllWorkouts(): Flow<List<WorkoutEntity>>
 
-    @Query("SELECT * FROM workouts ORDER BY date DESC LIMIT 1")
+    @Query("SELECT * FROM workouts ORDER BY date DESC, id DESC LIMIT 1")
     fun getLastWorkout(): Flow<WorkoutEntity?>
+
+    @Query("SELECT * FROM workouts WHERE id = :id LIMIT 1")
+    fun getWorkoutById(id: Long): Flow<WorkoutEntity?>
 
 }

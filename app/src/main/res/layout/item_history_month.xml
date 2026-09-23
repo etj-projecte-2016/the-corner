@@ -1,0 +1,5 @@
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/month" android:layout_width="match_parent" android:layout_height="wrap_content"
+    android:paddingTop="24dp" android:paddingBottom="12dp" android:textSize="13sp"
+    android:textColor="@color/corner_text_secondary" android:letterSpacing="0.16"
+    android:fontFamily="sans-serif-condensed" android:textStyle="bold" />

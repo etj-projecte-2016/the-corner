@@ -26,4 +26,7 @@ class WorkoutRepository(
         return workoutDao.getLastWorkout()
             .map { it?.toDomain() }
     }
+
+    fun getWorkoutById(id: Long): Flow<Workout?> =
+        workoutDao.getWorkoutById(id).map { it?.toDomain() }
 }

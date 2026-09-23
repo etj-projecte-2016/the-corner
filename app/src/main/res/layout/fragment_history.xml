@@ -1,0 +1,140 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/corner_background"
+    android:orientation="vertical"
+    android:paddingTop="24dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:paddingHorizontal="12dp">
+
+        <ImageButton
+            android:id="@+id/back"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/history_back"
+            android:src="@drawable/ic_arrow_back"
+            app:tint="@color/corner_text_primary" />
+
+        <TextView
+            style="@style/HistoryTitle"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/history_title" />
+
+        <Space
+            android:layout_width="48dp"
+            android:layout_height="1dp" />
+    </LinearLayout>
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:paddingHorizontal="16dp"
+        android:scrollbars="none">
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/filters"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:checkedChip="@id/filterAll"
+            android:layout_gravity="center"
+            app:chipSpacingHorizontal="4dp"
+            app:selectionRequired="true"
+            app:singleLine="true"
+            app:singleSelection="true">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/filterAll"
+                style="@style/HistoryFilter"
+                android:text="@string/history_all" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/filterBag"
+                style="@style/HistoryFilter"
+                android:text="@string/history_bag" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/filterPads"
+                style="@style/HistoryFilter"
+                android:text="@string/history_pads" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/filterShadow"
+                style="@style/HistoryFilter"
+                android:text="@string/history_shadow" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/filterSparring"
+                style="@style/HistoryFilter"
+                android:text="@string/history_sparring" />
+        </com.google.android.material.chip.ChipGroup>
+    </HorizontalScrollView>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/sessions"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:paddingHorizontal="20dp"
+            android:paddingBottom="24dp" />
+
+        <ProgressBar
+            android:id="@+id/loading"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:indeterminateTint="@color/corner_red" />
+
+        <LinearLayout
+            android:id="@+id/message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="32dp"
+            android:visibility="gone">
+
+            <ImageView
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:importantForAccessibility="no"
+                android:src="@drawable/ic_boxing_glove"
+                app:tint="@color/corner_text_secondary" />
+
+            <TextView
+                android:id="@+id/messageTitle"
+                style="@style/HistoryTitle"
+                android:layout_marginTop="20dp"
+                android:gravity="center" />
+
+            <TextView
+                android:id="@+id/messageBody"
+                style="@style/HistorySecondary"
+                android:layout_marginTop="8dp"
+                android:gravity="center" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/retry"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/history_retry"
+                android:textColor="@color/corner_text_primary"
+                app:backgroundTint="@color/corner_red_dark" />
+        </LinearLayout>
+    </FrameLayout>
+</LinearLayout>

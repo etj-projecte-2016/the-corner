@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -51,6 +52,9 @@ class HomeFragment : Fragment() {
 
         observeUiState()
         setupBottomNavigationBehavior()
+        binding.viewAllSessions.setOnClickListener {
+            findNavController().navigate(R.id.action_home_to_history)
+        }
     }
 
     private fun setupBottomNavigationBehavior() {
@@ -110,6 +114,11 @@ class HomeFragment : Fragment() {
     }
 
     private fun renderLastWorkout(workout: Workout?) {
+        binding.cardLastSession.setOnClickListener(if (workout == null) null else View.OnClickListener {
+            findNavController().navigate(R.id.action_home_to_details, Bundle().apply { putLong("sessionId", workout.id) })
+        })
+        binding.cardLastSession.isClickable = workout != null
+        binding.cardLastSession.isFocusable = workout != null
 
         if (workout == null) {
             binding.tvLastSessionType.setText(
