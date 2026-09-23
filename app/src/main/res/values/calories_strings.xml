@@ -1,0 +1,9 @@
+<resources>
+    <string name="calories_est_label">KCAL EST.</string>
+    <string name="calories_est_value">≈%1$d</string>
+    <string name="calories_est_with_unit">≈%1$d kcal</string>
+    <string name="calories_unavailable_value">—</string>
+    <string name="calories_unavailable_note">Calorie estimate unavailable: this session does not include the required workout type or work/rest times.</string>
+    <string name="calories_session_weight_note">Estimated using the session weight (%1$s kg).</string>
+    <string name="calories_fallback_weight_note">Estimated using a default weight of %1$s kg. No weight was recorded for this session.</string>
+</resources>
