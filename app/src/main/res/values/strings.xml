@@ -100,4 +100,9 @@
     <string name="session_retry">RETRY SAVE</string>
     <string name="session_finish">FINISH</string>
     <string name="session_rounds">%1$d ROUNDS</string>
+    <string name="workout_type">Workout type</string>
+    <string name="workout_type_bag">Bag work</string>
+    <string name="workout_type_pad">Pad work</string>
+    <string name="workout_type_sparring">Sparring</string>
+    <string name="workout_type_shadow">Shadow boxing</string>
 </resources>

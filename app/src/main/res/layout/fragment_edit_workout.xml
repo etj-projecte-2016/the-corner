@@ -55,6 +55,67 @@
             android:paddingEnd="16dp"
             android:paddingBottom="24dp">
 
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                app:cardBackgroundColor="@color/corner_surface"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="0dp"
+                app:strokeColor="@color/corner_card_border"
+                app:strokeWidth="1dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/workout_type"
+                        android:textColor="@color/corner_text_primary"
+                        android:textStyle="bold" />
+
+                    <RadioGroup
+                        android:id="@+id/workoutTypeGroup"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <com.google.android.material.radiobutton.MaterialRadioButton
+                            android:id="@+id/typeBag"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:minHeight="48dp"
+                            android:text="@string/workout_type_bag"
+                            android:textColor="@color/corner_text_primary" />
+                        <com.google.android.material.radiobutton.MaterialRadioButton
+                            android:id="@+id/typePad"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:minHeight="48dp"
+                            android:text="@string/workout_type_pad"
+                            android:textColor="@color/corner_text_primary" />
+                        <com.google.android.material.radiobutton.MaterialRadioButton
+                            android:id="@+id/typeSparring"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:minHeight="48dp"
+                            android:text="@string/workout_type_sparring"
+                            android:textColor="@color/corner_text_primary" />
+                        <com.google.android.material.radiobutton.MaterialRadioButton
+                            android:id="@+id/typeShadow"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:minHeight="48dp"
+                            android:text="@string/workout_type_shadow"
+                            android:textColor="@color/corner_text_primary" />
+                    </RadioGroup>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
 
             <!-- ================================================= -->
             <!-- ROUND DURATION -->

@@ -3,13 +3,32 @@ package com.example.thecorner.ui.training.edit
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import android.os.Bundle
+import androidx.lifecycle.SavedStateHandle
+import com.example.thecorner.model.WorkoutType
+import com.example.thecorner.ui.training.WorkoutConfigContract
 import com.example.thecorner.model.WorkoutConfig
 
-class EditWorkoutViewModel : ViewModel() {
+class EditWorkoutViewModel(private val savedState: SavedStateHandle) : ViewModel() {
 
     private val _workoutConfig = MutableLiveData(
-        WorkoutConfig()
+        WorkoutConfigContract.fromBundle(savedState.get<Bundle>("config")) ?: WorkoutConfig()
     )
+
+    private fun setConfig(config: WorkoutConfig) {
+        savedState["config"] = WorkoutConfigContract.toBundle(config)
+        _workoutConfig.value = config
+    }
+
+    fun initialize(arguments: Bundle?) {
+        if (!savedState.contains("config")) {
+            setConfig(WorkoutConfigContract.fromBundle(arguments) ?: WorkoutConfig())
+        }
+    }
+
+    fun selectType(type: WorkoutType) {
+        setConfig((_workoutConfig.value ?: WorkoutConfig()).copy(workoutType = type))
+    }
 
     val workoutConfig: LiveData<WorkoutConfig> = _workoutConfig
 
@@ -24,10 +43,10 @@ class EditWorkoutViewModel : ViewModel() {
 
         if (currentConfig.roundDurationSeconds < MAX_ROUND_DURATION) {
 
-            _workoutConfig.value = currentConfig.copy(
+            setConfig(currentConfig.copy(
                 roundDurationSeconds =
                     currentConfig.roundDurationSeconds + TIME_STEP
-            )
+            ))
         }
     }
 
@@ -37,10 +56,10 @@ class EditWorkoutViewModel : ViewModel() {
 
         if (currentConfig.roundDurationSeconds > MIN_ROUND_DURATION) {
 
-            _workoutConfig.value = currentConfig.copy(
+            setConfig(currentConfig.copy(
                 roundDurationSeconds =
                     currentConfig.roundDurationSeconds - TIME_STEP
-            )
+            ))
         }
     }
 
@@ -55,10 +74,10 @@ class EditWorkoutViewModel : ViewModel() {
 
         if (currentConfig.restDurationSeconds < MAX_REST_DURATION) {
 
-            _workoutConfig.value = currentConfig.copy(
+            setConfig(currentConfig.copy(
                 restDurationSeconds =
                     currentConfig.restDurationSeconds + TIME_STEP
-            )
+            ))
         }
     }
 
@@ -68,10 +87,10 @@ class EditWorkoutViewModel : ViewModel() {
 
         if (currentConfig.restDurationSeconds > MIN_REST_DURATION) {
 
-            _workoutConfig.value = currentConfig.copy(
+            setConfig(currentConfig.copy(
                 restDurationSeconds =
                     currentConfig.restDurationSeconds - TIME_STEP
-            )
+            ))
         }
     }
 
@@ -86,10 +105,10 @@ class EditWorkoutViewModel : ViewModel() {
 
         if (currentConfig.numberOfRounds < MAX_ROUNDS) {
 
-            _workoutConfig.value = currentConfig.copy(
+            setConfig(currentConfig.copy(
                 numberOfRounds =
                     currentConfig.numberOfRounds + 1
-            )
+            ))
         }
     }
 
@@ -99,10 +118,10 @@ class EditWorkoutViewModel : ViewModel() {
 
         if (currentConfig.numberOfRounds > MIN_ROUNDS) {
 
-            _workoutConfig.value = currentConfig.copy(
+            setConfig(currentConfig.copy(
                 numberOfRounds =
                     currentConfig.numberOfRounds - 1
-            )
+            ))
         }
     }
 

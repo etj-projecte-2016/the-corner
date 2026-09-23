@@ -12,6 +12,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import com.example.thecorner.R
 import com.example.thecorner.databinding.FragmentHomeBinding
 import com.example.thecorner.model.Workout
+import com.example.thecorner.ui.training.labelRes
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -127,7 +128,7 @@ class HomeFragment : Fragment() {
         }
 
         binding.tvLastSessionType.setText(
-            R.string.home_boxing
+            workout.workoutType?.labelRes() ?: R.string.home_boxing
         )
 
         binding.tvLastSessionDate.text =

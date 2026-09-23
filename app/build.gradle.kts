@@ -51,3 +51,7 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     ksp(libs.androidx.room3.compiler)
 }
+
+ksp {
+    arg("room.schemaLocation", "$projectDir/schemas")
+}

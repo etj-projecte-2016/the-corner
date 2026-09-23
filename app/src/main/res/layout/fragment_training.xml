@@ -128,6 +128,16 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
+                    <TextView
+                        android:id="@+id/tvWorkoutType"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="16dp"
+                        android:textColor="@color/corner_text_primary"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        tools:text="Bag work" />
+
 
                     <!-- ========================================= -->
                     <!-- ROUND / REST / ROUNDS -->

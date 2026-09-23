@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.thecorner.R
@@ -19,9 +20,9 @@ class TrainingFragment : Fragment() {
     // CURRENT WORKOUT CONFIG
     // ============================================================
 
-    private var roundDurationSeconds = 180
-    private var restDurationSeconds = 60
-    private var numberOfRounds = 10
+    private val viewModel: TrainingViewModel by viewModels()
+
+
 
 
     // ============================================================
@@ -54,7 +55,7 @@ class TrainingFragment : Fragment() {
         setupEditSessionButton()
         setupStartWorkoutButton()
 
-        updateWorkoutUi()
+        viewModel.config.observe(viewLifecycleOwner) { updateWorkoutUi() }
     }
 
 
@@ -65,26 +66,11 @@ class TrainingFragment : Fragment() {
     private fun setupWorkoutConfigResult() {
 
         parentFragmentManager.setFragmentResultListener(
-            WORKOUT_CONFIG_RESULT,
+            WorkoutConfigContract.RESULT,
             viewLifecycleOwner
         ) { _, bundle ->
 
-            roundDurationSeconds = bundle.getInt(
-                KEY_ROUND_DURATION,
-                roundDurationSeconds
-            )
-
-            restDurationSeconds = bundle.getInt(
-                KEY_REST_DURATION,
-                restDurationSeconds
-            )
-
-            numberOfRounds = bundle.getInt(
-                KEY_NUMBER_OF_ROUNDS,
-                numberOfRounds
-            )
-
-            updateWorkoutUi()
+            WorkoutConfigContract.fromBundle(bundle)?.let(viewModel::setConfig)
         }
     }
 
@@ -98,7 +84,8 @@ class TrainingFragment : Fragment() {
         binding.btnEditSession.setOnClickListener {
 
             findNavController().navigate(
-                R.id.action_trainingFragment_to_editWorkoutFragment
+                R.id.action_trainingFragment_to_editWorkoutFragment,
+                WorkoutConfigContract.toBundle(viewModel.config.value ?: return@setOnClickListener)
             )
         }
     }
@@ -112,23 +99,7 @@ class TrainingFragment : Fragment() {
 
         binding.btnStartWorkout.setOnClickListener {
 
-            val bundle = Bundle().apply {
-
-                putInt(
-                    "roundDurationSeconds",
-                    roundDurationSeconds
-                )
-
-                putInt(
-                    "restDurationSeconds",
-                    restDurationSeconds
-                )
-
-                putInt(
-                    "numberOfRounds",
-                    numberOfRounds
-                )
-            }
+            val bundle = WorkoutConfigContract.toBundle(viewModel.config.value ?: return@setOnClickListener)
 
             findNavController().navigate(
                 R.id.action_trainingFragment_to_workoutSessionFragment,
@@ -143,15 +114,17 @@ class TrainingFragment : Fragment() {
     // ============================================================
 
     private fun updateWorkoutUi() {
+        val config = viewModel.config.value ?: return
+        binding.tvWorkoutType.setText(config.workoutType.labelRes())
 
         binding.tvRoundDuration.text =
-            formatTime(roundDurationSeconds)
+            formatTime(config.roundDurationSeconds)
 
         binding.tvRestDuration.text =
-            formatTime(restDurationSeconds)
+            formatTime(config.restDurationSeconds)
 
         binding.tvRounds.text =
-            numberOfRounds.toString()
+            config.numberOfRounds.toString()
 
         updateEstimatedDuration()
     }
@@ -162,6 +135,7 @@ class TrainingFragment : Fragment() {
     // ============================================================
 
     private fun updateEstimatedDuration() {
+        val config = viewModel.config.value ?: return
 
         /*
          * Ejemplo:
@@ -176,14 +150,14 @@ class TrainingFragment : Fragment() {
          */
 
         val totalRoundSeconds =
-            roundDurationSeconds * numberOfRounds
+            config.roundDurationSeconds * config.numberOfRounds
 
         val numberOfRests =
-            (numberOfRounds - 1)
+            (config.numberOfRounds - 1)
                 .coerceAtLeast(0)
 
         val totalRestSeconds =
-            restDurationSeconds * numberOfRests
+            config.restDurationSeconds * numberOfRests
 
         val totalDurationSeconds =
             totalRoundSeconds + totalRestSeconds
@@ -218,25 +192,5 @@ class TrainingFragment : Fragment() {
         super.onDestroyView()
 
         _binding = null
-    }
-
-
-    // ============================================================
-    // RESULT KEYS
-    // ============================================================
-
-    companion object {
-
-        private const val WORKOUT_CONFIG_RESULT =
-            "workoutConfigResult"
-
-        private const val KEY_ROUND_DURATION =
-            "roundDurationSeconds"
-
-        private const val KEY_REST_DURATION =
-            "restDurationSeconds"
-
-        private const val KEY_NUMBER_OF_ROUNDS =
-            "numberOfRounds"
     }
 }

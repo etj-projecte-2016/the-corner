@@ -11,6 +11,8 @@ import androidx.navigation.fragment.findNavController
 import com.example.thecorner.R
 import com.example.thecorner.databinding.FragmentEditWorkoutBinding
 import com.example.thecorner.model.WorkoutConfig
+import com.example.thecorner.model.WorkoutType
+import com.example.thecorner.ui.training.WorkoutConfigContract
 
 class EditWorkoutFragment : Fragment() {
 
@@ -42,6 +44,17 @@ class EditWorkoutFragment : Fragment() {
     ) {
         super.onViewCreated(view, savedInstanceState)
 
+        viewModel.initialize(arguments)
+        binding.workoutTypeGroup.setOnCheckedChangeListener { _, checkedId ->
+            val type = when (checkedId) {
+                R.id.typeBag -> WorkoutType.BAG_WORK
+                R.id.typePad -> WorkoutType.PAD_WORK
+                R.id.typeSparring -> WorkoutType.SPARRING
+                R.id.typeShadow -> WorkoutType.SHADOW_BOXING
+                else -> return@setOnCheckedChangeListener
+            }
+            if (viewModel.workoutConfig.value?.workoutType != type) viewModel.selectType(type)
+        }
         setupToolbar()
         setupRoundDurationButtons()
         setupRestDurationButtons()
@@ -138,25 +151,10 @@ class EditWorkoutFragment : Fragment() {
                 viewModel.workoutConfig.value
                     ?: return@setOnClickListener
 
-            val result = Bundle().apply {
-                putInt(
-                    "roundDurationSeconds",
-                    config.roundDurationSeconds
-                )
-
-                putInt(
-                    "restDurationSeconds",
-                    config.restDurationSeconds
-                )
-
-                putInt(
-                    "numberOfRounds",
-                    config.numberOfRounds
-                )
-            }
+            val result = WorkoutConfigContract.toBundle(config)
 
             parentFragmentManager.setFragmentResult(
-                "workoutConfigResult",
+                WorkoutConfigContract.RESULT,
                 result
             )
 
@@ -170,6 +168,12 @@ class EditWorkoutFragment : Fragment() {
     // ============================================================
 
     private fun updateUi(config: WorkoutConfig) {
+        binding.workoutTypeGroup.check(when (config.workoutType) {
+            WorkoutType.BAG_WORK -> R.id.typeBag
+            WorkoutType.PAD_WORK -> R.id.typePad
+            WorkoutType.SPARRING -> R.id.typeSparring
+            WorkoutType.SHADOW_BOXING -> R.id.typeShadow
+        })
 
         binding.tvEditRoundDuration.text =
             formatTime(config.roundDurationSeconds)

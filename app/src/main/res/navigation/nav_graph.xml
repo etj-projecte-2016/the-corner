@@ -30,12 +30,22 @@
         android:id="@+id/workoutSessionFragment"
         android:name="com.example.thecorner.ui.training.session.WorkoutSessionFragment"
         android:label="WorkoutSession"
-        tools:layout="@layout/fragment_workout_session" />
+        tools:layout="@layout/fragment_workout_session">
+        <argument android:name="roundDurationSeconds" app:argType="integer" android:defaultValue="180" />
+        <argument android:name="restDurationSeconds" app:argType="integer" android:defaultValue="60" />
+        <argument android:name="numberOfRounds" app:argType="integer" android:defaultValue="10" />
+        <argument android:name="workoutType" app:argType="string" />
+    </fragment>
 
     <fragment
         android:id="@+id/editWorkoutFragment"
         android:name="com.example.thecorner.ui.training.edit.EditWorkoutFragment"
-        android:label="EditWorkoutFragment" />
+        android:label="EditWorkoutFragment">
+        <argument android:name="roundDurationSeconds" app:argType="integer" android:defaultValue="180" />
+        <argument android:name="restDurationSeconds" app:argType="integer" android:defaultValue="60" />
+        <argument android:name="numberOfRounds" app:argType="integer" android:defaultValue="10" />
+        <argument android:name="workoutType" app:argType="string" android:defaultValue="bag_work" />
+    </fragment>
 
     <fragment
         android:id="@+id/aiFragment"

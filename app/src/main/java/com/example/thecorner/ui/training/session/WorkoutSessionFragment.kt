@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.thecorner.R
+import com.example.thecorner.ui.training.WorkoutConfigContract
 import com.example.thecorner.databinding.FragmentWorkoutSessionBinding
 
 class WorkoutSessionFragment : Fragment() {
@@ -51,22 +52,20 @@ class WorkoutSessionFragment : Fragment() {
     ) {
         super.onViewCreated(view, savedInstanceState)
 
-        val roundDuration =
-            arguments?.getInt(ARG_ROUND_DURATION) ?: 180
-
-        val restDuration =
-            arguments?.getInt(ARG_REST_DURATION) ?: 60
-
-        val totalRounds =
-            arguments?.getInt(ARG_TOTAL_ROUNDS) ?: 10
+        val config = WorkoutConfigContract.fromBundle(arguments)
+        if (config == null) {
+            findNavController().navigateUp()
+            return
+        }
 
         setupButtons()
         observeState()
 
         viewModel.configure(
-            roundDurationSeconds = roundDuration,
-            restDurationSeconds = restDuration,
-            totalRounds = totalRounds
+            roundDurationSeconds = config.roundDurationSeconds,
+            restDurationSeconds = config.restDurationSeconds,
+            totalRounds = config.numberOfRounds,
+            workoutType = config.workoutType
         )
     }
 
@@ -1090,18 +1089,5 @@ class WorkoutSessionFragment : Fragment() {
         super.onDestroyView()
 
         _binding = null
-    }
-
-
-    companion object {
-
-        const val ARG_ROUND_DURATION =
-            "roundDurationSeconds"
-
-        const val ARG_REST_DURATION =
-            "restDurationSeconds"
-
-        const val ARG_TOTAL_ROUNDS =
-            "numberOfRounds"
     }
 }

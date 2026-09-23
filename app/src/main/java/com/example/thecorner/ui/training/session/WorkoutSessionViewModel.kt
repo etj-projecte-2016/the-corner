@@ -8,6 +8,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.thecorner.TheCornerApplication
 import com.example.thecorner.model.Workout
+import com.example.thecorner.model.WorkoutConfig
+import com.example.thecorner.model.WorkoutType
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.NonCancellable
@@ -36,6 +38,7 @@ class WorkoutSessionViewModel(application: Application) : AndroidViewModel(appli
         val phase: Phase = Phase.PREPARING,
         val currentRound: Int = 1,
         val totalRounds: Int = 10,
+        val workoutType: WorkoutType = WorkoutType.BAG_WORK,
         val remainingSeconds: Int = 3,
         val roundDurationSeconds: Int = 180,
         val restDurationSeconds: Int = 60,
@@ -56,7 +59,8 @@ class WorkoutSessionViewModel(application: Application) : AndroidViewModel(appli
     fun configure(
         roundDurationSeconds: Int,
         restDurationSeconds: Int,
-        totalRounds: Int
+        totalRounds: Int,
+        workoutType: WorkoutType
     ) {
 
         if (configured) return
@@ -67,6 +71,7 @@ class WorkoutSessionViewModel(application: Application) : AndroidViewModel(appli
             phase = Phase.PREPARING,
             currentRound = 1,
             totalRounds = totalRounds,
+            workoutType = workoutType,
             remainingSeconds = 3,
             roundDurationSeconds = roundDurationSeconds,
             restDurationSeconds = restDurationSeconds
@@ -342,16 +347,10 @@ class WorkoutSessionViewModel(application: Application) : AndroidViewModel(appli
         if (current.phase == Phase.FINISHED) return
 
         timer?.cancel()
-        completedWorkout = Workout(
-            id = 0,
-            date = System.currentTimeMillis(),
-            duration = current.totalRounds * current.roundDurationSeconds +
-                (current.totalRounds - 1).coerceAtLeast(0) * current.restDurationSeconds,
-            calories = 0, // No calorie estimate is available yet.
-            totalRounds = current.totalRounds,
-            bagRounds = 0, // Session configuration does not classify rounds.
-            sparringRounds = 0,
-            techniqueRounds = 0
+        completedWorkout = Workout.completed(
+            WorkoutConfig(current.roundDurationSeconds, current.restDurationSeconds,
+                current.totalRounds, current.workoutType),
+            System.currentTimeMillis()
         )
         _state.value = current.copy(
             phase = Phase.FINISHED,
