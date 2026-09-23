@@ -4,13 +4,15 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.thecorner.data.repository.WorkoutRepository
 import com.example.thecorner.model.Workout
+import com.example.thecorner.model.estimatedCalories
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.*
 
 data class SessionDetailsUiState(
     val session: Workout? = null,
     val isLoading: Boolean = true,
-    val hasError: Boolean = false
+    val hasError: Boolean = false,
+    val estimatedCalories: Double? = null
 )
 
 @OptIn(ExperimentalCoroutinesApi::class)
@@ -18,7 +20,7 @@ class SessionDetailsViewModel(repository: WorkoutRepository, sessionId: Long) : 
     private val refresh = MutableStateFlow(0)
     val uiState: StateFlow<SessionDetailsUiState> = refresh.flatMapLatest {
         repository.getWorkoutById(sessionId)
-            .map { SessionDetailsUiState(session = it, isLoading = false) }
+            .map { SessionDetailsUiState(session = it, isLoading = false, estimatedCalories = it?.estimatedCalories()) }
             .onStart { emit(SessionDetailsUiState()) }
             .catch { emit(SessionDetailsUiState(isLoading = false, hasError = true)) }
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), SessionDetailsUiState())

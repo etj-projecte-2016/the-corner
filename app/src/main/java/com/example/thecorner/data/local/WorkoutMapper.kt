@@ -15,7 +15,10 @@ fun WorkoutEntity.toDomain(): Workout {
         techniqueRounds = techniqueRounds,
         padRounds = padRounds,
         shadowBoxingRounds = shadowBoxingRounds,
-        workoutType = WorkoutType.fromStorageId(workoutType)
+        workoutType = WorkoutType.fromStorageId(workoutType),
+        bodyWeightKgAtSession = bodyWeightKgAtSession,
+        activeDurationSeconds = activeDurationSeconds,
+        restDurationSeconds = restDurationSeconds
     )
 }
 
@@ -31,6 +34,9 @@ fun Workout.toEntity(): WorkoutEntity {
         techniqueRounds = techniqueRounds,
         padRounds = padRounds,
         shadowBoxingRounds = shadowBoxingRounds,
-        workoutType = workoutType?.storageId
+        workoutType = workoutType?.storageId,
+        bodyWeightKgAtSession = bodyWeightKgAtSession,
+        activeDurationSeconds = activeDurationSeconds,
+        restDurationSeconds = restDurationSeconds
     )
 }

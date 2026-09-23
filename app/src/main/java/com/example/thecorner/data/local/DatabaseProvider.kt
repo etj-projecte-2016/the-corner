@@ -16,7 +16,7 @@ object DatabaseProvider {
                 context.applicationContext,
                 WorkoutDatabase::class.java,
                 "the_corner_database"
-            ).addMigrations(MIGRATION_1_2).build().also {
+            ).addMigrations(MIGRATION_1_2, MIGRATION_2_3).build().also {
                 INSTANCE = it
             }
         }

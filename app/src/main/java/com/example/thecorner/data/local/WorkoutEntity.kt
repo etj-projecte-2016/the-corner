@@ -19,6 +19,9 @@ class WorkoutEntity (
     val techniqueRounds: Int,
     @ColumnInfo(defaultValue = "0") val padRounds: Int = 0,
     @ColumnInfo(defaultValue = "0") val shadowBoxingRounds: Int = 0,
-    val workoutType: String? = null
+    val workoutType: String? = null,
+    val bodyWeightKgAtSession: Double? = null,
+    val activeDurationSeconds: Int? = null,
+    val restDurationSeconds: Int? = null
 
 )

@@ -107,7 +107,7 @@ class HomeFragment : Fragment() {
             (uiState.averageDuration / 60).toString()
 
         binding.tvCaloriesValue.text =
-            uiState.averageCalories.toString()
+            getString(R.string.calories_est_value, uiState.averageCalories)
 
         binding.tvBagRoundsValue.text =
             uiState.averageBagRounds.toString()
@@ -147,7 +147,7 @@ class HomeFragment : Fragment() {
             (workout.duration / 60).toString()
 
         binding.tvLastSessionCalories.text =
-            workout.calories.toString()
+            getString(R.string.calories_est_value, workout.calories)
 
         binding.tvLastSessionRounds.text =
             workout.totalRounds.toString()

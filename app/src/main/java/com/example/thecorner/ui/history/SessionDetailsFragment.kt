@@ -16,8 +16,10 @@ import androidx.navigation.fragment.findNavController
 import com.example.thecorner.R
 import com.example.thecorner.TheCornerApplication
 import com.example.thecorner.databinding.FragmentSessionDetailsBinding
+import com.example.thecorner.model.WorkoutEnergyDefaults
 import kotlinx.coroutines.launch
 import java.text.NumberFormat
+import kotlin.math.roundToInt
 
 class SessionDetailsFragment : Fragment() {
     private var _binding: FragmentSessionDetailsBinding? = null
@@ -57,6 +59,16 @@ class SessionDetailsFragment : Fragment() {
                         binding.time.text = sessionTime(session.date)
                         binding.rounds.text = NumberFormat.getIntegerInstance().format(session.totalRounds)
                         binding.duration.text = sessionDuration(requireContext(), session.duration)
+                        val calories = state.estimatedCalories
+                        binding.calories.text = calories?.let { getString(R.string.calories_est_value, it.roundToInt()) }
+                            ?: getString(R.string.calories_unavailable_value)
+                        binding.caloriesNote.text = when {
+                            calories == null -> getString(R.string.calories_unavailable_note)
+                            session.bodyWeightKgAtSession == null -> getString(R.string.calories_fallback_weight_note,
+                                NumberFormat.getNumberInstance().format(WorkoutEnergyDefaults.DEFAULT_WEIGHT_KG))
+                            else -> getString(R.string.calories_session_weight_note,
+                                NumberFormat.getNumberInstance().format(session.bodyWeightKgAtSession))
+                        }
                     }
                 }
             }

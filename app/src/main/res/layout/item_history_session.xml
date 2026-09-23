@@ -13,6 +13,7 @@
             <TextView android:id="@+id/title" style="@style/HistoryTitle" android:textSize="18sp" />
             <TextView android:id="@+id/date" style="@style/HistorySecondary" android:textSize="11sp" android:layout_marginTop="4dp" />
             <TextView android:id="@+id/summary" style="@style/HistorySecondary" android:textSize="12sp" android:layout_marginTop="6dp" />
+            <TextView android:id="@+id/caloriesEstimate" style="@style/HistorySecondary" android:textSize="11sp" android:layout_marginTop="4dp" android:visibility="gone" />
         </LinearLayout>
         <ImageView android:layout_width="20dp" android:layout_height="20dp"
             android:src="@drawable/ic_arrow_back" android:rotation="180"

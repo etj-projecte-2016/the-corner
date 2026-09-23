@@ -22,7 +22,7 @@
     <string name="home_no_session">NO SESSION YET</string>
     <string name="home_start_first_workout">Start your first workout</string>
     <string name="home_minutes">MIN</string>
-    <string name="home_calories">KCAL</string>
+    <string name="home_calories">KCAL EST.</string>
     <string name="home_rounds">ROUNDS</string>
 
     <!-- Home - Weekly activity -->
@@ -50,7 +50,7 @@
     <string name="home_app_title_corner">CORNER</string>
 
     <string name="home_average_duration">AVG. DURATION</string>
-    <string name="home_average_calories">AVG. CALORIES</string>
+    <string name="home_average_calories">AVG. EST. CALORIES</string>
     <string name="home_bag_average">BAG AVG.</string>
 
     <!-- Training -->

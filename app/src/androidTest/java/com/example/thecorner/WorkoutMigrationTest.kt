@@ -5,6 +5,7 @@ import android.database.sqlite.SQLiteDatabase
 import androidx.room3.Room
 import androidx.test.platform.app.InstrumentationRegistry
 import com.example.thecorner.data.local.MIGRATION_1_2
+import com.example.thecorner.data.local.MIGRATION_2_3
 import com.example.thecorner.data.local.WorkoutDatabase
 import com.example.thecorner.data.local.toEntity
 import com.example.thecorner.model.Workout
@@ -28,7 +29,7 @@ class WorkoutMigrationTest {
                 old.version = 1
             }
             val database = Room.databaseBuilder(context, WorkoutDatabase::class.java, name)
-                .addMigrations(MIGRATION_1_2).build()
+                .addMigrations(MIGRATION_1_2, MIGRATION_2_3).build()
             try {
                 val history = database.workoutDao().getAllWorkouts().first()
                 assertEquals(2, history.size)
@@ -41,6 +42,9 @@ class WorkoutMigrationTest {
                     assertEquals(0, it.padRounds)
                     assertEquals(0, it.shadowBoxingRounds)
                     assertEquals(5, it.totalRounds)
+                    assertNull(it.bodyWeightKgAtSession)
+                    assertNull(it.activeDurationSeconds)
+                    assertNull(it.restDurationSeconds)
                 }
                 WorkoutType.entries.forEach { type ->
                     database.workoutDao().insertWorkout(

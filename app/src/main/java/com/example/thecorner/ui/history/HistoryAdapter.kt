@@ -3,6 +3,7 @@ package com.example.thecorner.ui.history
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.view.ViewCompat
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -10,9 +11,11 @@ import com.example.thecorner.R
 import com.example.thecorner.databinding.ItemHistoryMonthBinding
 import com.example.thecorner.databinding.ItemHistorySessionBinding
 import com.example.thecorner.model.Workout
+import com.example.thecorner.model.estimatedCalories
 import java.time.YearMonth
 import java.time.format.DateTimeFormatter
 import java.util.Locale
+import kotlin.math.roundToInt
 
 internal sealed interface HistoryRow {
     data class Month(val month: YearMonth) : HistoryRow
@@ -49,6 +52,9 @@ internal class HistoryAdapter(private val onSessionClick: (Long) -> Unit) :
                 summary.text = context.getString(R.string.history_session_summary,
                     context.resources.getQuantityString(R.plurals.history_rounds, workout.totalRounds, workout.totalRounds),
                     sessionDuration(context, workout.duration))
+                val calories = workout.estimatedCalories()
+                caloriesEstimate.isVisible = calories != null
+                caloriesEstimate.text = calories?.let { context.getString(R.string.calories_est_with_unit, it.roundToInt()) }
                 artwork.setImageResource(workout.workoutType.historyImage())
                 root.setOnClickListener { onSessionClick(workout.id) }
             }

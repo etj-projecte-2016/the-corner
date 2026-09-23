@@ -11,3 +11,11 @@ val MIGRATION_1_2 = object : Migration(1, 2) {
         connection.execSQL("ALTER TABLE workouts ADD COLUMN workoutType TEXT")
     }
 }
+
+val MIGRATION_2_3 = object : Migration(2, 3) {
+    override suspend fun migrate(connection: SQLiteConnection) {
+        connection.execSQL("ALTER TABLE workouts ADD COLUMN bodyWeightKgAtSession REAL")
+        connection.execSQL("ALTER TABLE workouts ADD COLUMN activeDurationSeconds INTEGER")
+        connection.execSQL("ALTER TABLE workouts ADD COLUMN restDurationSeconds INTEGER")
+    }
+}

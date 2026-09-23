@@ -10,6 +10,7 @@ import com.example.thecorner.TheCornerApplication
 import com.example.thecorner.model.Workout
 import com.example.thecorner.model.WorkoutConfig
 import com.example.thecorner.model.WorkoutType
+import com.example.thecorner.model.WorkoutEnergyDefaults
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.NonCancellable
@@ -350,7 +351,9 @@ class WorkoutSessionViewModel(application: Application) : AndroidViewModel(appli
         completedWorkout = Workout.completed(
             WorkoutConfig(current.roundDurationSeconds, current.restDurationSeconds,
                 current.totalRounds, current.workoutType),
-            System.currentTimeMillis()
+            System.currentTimeMillis(),
+            // Future profile weight is resolved here; the calculator only receives the value.
+            weightKg = WorkoutEnergyDefaults.DEFAULT_WEIGHT_KG
         )
         _state.value = current.copy(
             phase = Phase.FINISHED,

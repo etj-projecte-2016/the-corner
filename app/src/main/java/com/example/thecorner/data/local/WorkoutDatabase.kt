@@ -5,7 +5,7 @@ import androidx.room3.RoomDatabase
 
 @Database(
     entities = [WorkoutEntity::class],
-    version = 2,
+    version = 3,
     exportSchema = true
 )
 
