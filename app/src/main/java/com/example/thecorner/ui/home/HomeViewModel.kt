@@ -8,6 +8,7 @@ import com.example.thecorner.model.Workout
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import java.util.Calendar
 
@@ -20,14 +21,19 @@ class HomeViewModel(
             .appContainer
             .workoutRepository
 
+    private val profileRepository =
+        (application as TheCornerApplication)
+            .appContainer
+            .profileRepository
+
     val uiState: StateFlow<HomeUiState> =
-        repository.getAllWorkouts()
-            .map { workouts ->
+        combine(repository.getAllWorkouts(), profileRepository.profile) { workouts, profile ->
 
                 val weeklyWorkouts = getWorkoutsThisWeek(workouts)
                 val trainedDays = getTrainedDays(weeklyWorkouts)
 
                 HomeUiState(
+                    userName = profile.name,
                     workoutsThisWeek = weeklyWorkouts.size,
                     averageDuration = calculateAverageDuration(weeklyWorkouts),
                     averageCalories = calculateAverageCalories(weeklyWorkouts),

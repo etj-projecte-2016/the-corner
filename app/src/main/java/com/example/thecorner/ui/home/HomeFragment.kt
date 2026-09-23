@@ -95,6 +95,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun render(uiState: HomeUiState) {
+        binding.tvUserName.text = uiState.userName
         renderWeeklyStats(uiState)
         renderLastWorkout(uiState.lastWorkout)
         renderWeeklyActivity(uiState.trainedDays)

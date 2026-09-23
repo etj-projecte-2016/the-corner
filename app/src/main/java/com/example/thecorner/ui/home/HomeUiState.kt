@@ -1,8 +1,11 @@
 package com.example.thecorner.ui.home
 
 import com.example.thecorner.model.Workout
+import com.example.thecorner.model.ProfileDefaults
 
 data class HomeUiState(
+
+    val userName: String = ProfileDefaults.DEFAULT_NAME,
 
     val workoutsThisWeek: Int = 0,
     val averageDuration: Int = 0,

@@ -72,5 +72,15 @@
         android:id="@+id/profileFragment"
         android:name="com.example.thecorner.ui.profile.ProfileFragment"
         android:label="Profile"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_profile">
+        <action
+            android:id="@+id/action_profile_to_edit_profile"
+            app:destination="@id/editProfileFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/editProfileFragment"
+        android:name="com.example.thecorner.ui.profile.EditProfileFragment"
+        android:label="@string/profile_edit_title"
+        tools:layout="@layout/fragment_edit_profile" />
 </navigation>

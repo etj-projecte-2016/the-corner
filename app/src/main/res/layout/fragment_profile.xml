@@ -1,14 +1,380 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.profile.ProfileFragment">
+    android:background="@color/corner_background">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Profilee fragment" />
+    <ScrollView
+        android:id="@+id/profileScroll"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        android:clipToPadding="false"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
-</FrameLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="760dp">
+
+            <!-- HERO / PLACEHOLDER BOXER IMAGE -->
+            <ImageView
+                android:id="@+id/ivProfileHero"
+                android:layout_width="0dp"
+                android:layout_height="430dp"
+                android:contentDescription="@string/profile_title"
+                android:scaleType="centerCrop"
+                android:src="@drawable/profile_boxer_placeholder"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <!-- DARK OVERLAY -->
+            <View
+                android:id="@+id/heroOverlay"
+                android:layout_width="0dp"
+                android:layout_height="430dp"
+                android:background="@drawable/bg_profile_hero_gradient"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <!-- THE CORNER -->
+            <TextView
+                android:id="@+id/tvBrand"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="30dp"
+                android:fontFamily="sans-serif-condensed"
+                android:gravity="start"
+                android:lineSpacingExtra="-4dp"
+                android:text="THE\nCORNER"
+                android:textColor="@android:color/white"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvBrandSubtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="8dp"
+                android:fontFamily="monospace"
+                android:letterSpacing="0.16"
+                android:text="BOXING TRACKS.\nREAL PROGRESS."
+                android:textColor="#AFAFAF"
+                android:textSize="10sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvBrand" />
+
+            <View
+                android:layout_width="20dp"
+                android:layout_height="2dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="10dp"
+                android:background="#FF1744"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvBrandSubtitle" />
+
+            <!-- RIGHT MOTTO -->
+            <TextView
+                android:id="@+id/tvHeroMotto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="38dp"
+                android:layout_marginEnd="24dp"
+                android:fontFamily="monospace"
+                android:gravity="end"
+                android:letterSpacing="0.18"
+                android:text="SAME\nWORK\nDIFFERENT\nYOU"
+                android:textColor="#AAAAAA"
+                android:textSize="9sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:layout_width="20dp"
+                android:layout_height="2dp"
+                android:layout_marginTop="9dp"
+                android:background="#FF1744"
+                app:layout_constraintEnd_toEndOf="@id/tvHeroMotto"
+                app:layout_constraintTop_toBottomOf="@id/tvHeroMotto" />
+
+            <!-- PROFILE NAME -->
+            <TextView
+                android:id="@+id/tvProfileName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="300dp"
+                android:fontFamily="monospace"
+                android:letterSpacing="0.18"
+                android:text="ERIC"
+                android:textColor="@android:color/white"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:id="@+id/nameAccent"
+                android:layout_width="22dp"
+                android:layout_height="3dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="7dp"
+                android:background="#FF1744"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvProfileName" />
+
+            <TextView
+                android:id="@+id/tvProfileType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="8dp"
+                android:fontFamily="monospace"
+                android:letterSpacing="0.2"
+                android:text="BOXER PROFILE"
+                android:textColor="#AFAFAF"
+                android:textSize="11sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/nameAccent" />
+
+            <!-- STATS CARD -->
+            <LinearLayout
+                android:id="@+id/statsCard"
+                android:layout_width="0dp"
+                android:layout_height="172dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="18dp"
+                android:layout_marginEnd="24dp"
+                android:background="@drawable/bg_profile_card"
+                android:orientation="vertical"
+                android:paddingTop="22dp"
+                android:paddingBottom="14dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvProfileType">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <!-- AGE -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="monospace"
+                            android:letterSpacing="0.2"
+                            android:text="AGE"
+                            android:textColor="#AFAFAF"
+                            android:textSize="9sp" />
+
+                        <TextView
+                            android:id="@+id/tvAge"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="sans-serif-condensed"
+                            android:text="31"
+                            android:textColor="@android:color/white"
+                            android:textSize="38sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="monospace"
+                            android:letterSpacing="0.14"
+                            android:text="YEARS"
+                            android:textColor="#AAAAAA"
+                            android:textSize="9sp" />
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginVertical="5dp"
+                        android:background="#353535" />
+
+                    <!-- WEIGHT -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="monospace"
+                            android:letterSpacing="0.2"
+                            android:text="WEIGHT"
+                            android:textColor="#AFAFAF"
+                            android:textSize="9sp" />
+
+                        <TextView
+                            android:id="@+id/tvWeight"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="sans-serif-condensed"
+                            android:text="75"
+                            android:textColor="@android:color/white"
+                            android:textSize="38sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="monospace"
+                            android:letterSpacing="0.14"
+                            android:text="KG"
+                            android:textColor="#AAAAAA"
+                            android:textSize="9sp" />
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginVertical="5dp"
+                        android:background="#353535" />
+
+                    <!-- HEIGHT -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="monospace"
+                            android:letterSpacing="0.2"
+                            android:text="HEIGHT"
+                            android:textColor="#AFAFAF"
+                            android:textSize="9sp" />
+
+                        <TextView
+                            android:id="@+id/tvHeight"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="sans-serif-condensed"
+                            android:text="180"
+                            android:textColor="@android:color/white"
+                            android:textSize="38sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="monospace"
+                            android:letterSpacing="0.14"
+                            android:text="CM"
+                            android:textColor="#AAAAAA"
+                            android:textSize="9sp" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:fontFamily="monospace"
+                    android:letterSpacing="0.18"
+                    android:text="USED FOR\nCALORIE ESTIMATES"
+                    android:textColor="#999999"
+                    android:textSize="7sp" />
+
+            </LinearLayout>
+
+            <!-- EDIT PROFILE -->
+            <LinearLayout
+                android:id="@+id/btnEditProfile"
+                android:layout_width="0dp"
+                android:layout_height="58dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="24dp"
+                android:background="@drawable/bg_profile_button"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="20dp"
+                android:paddingEnd="18dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/statsCard">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Edit profile"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="›"
+                    android:textColor="@android:color/white"
+                    android:textSize="32sp" />
+
+            </LinearLayout>
+
+            <!-- QUOTE -->
+            <TextView
+                android:id="@+id/tvQuote"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="36dp"
+                android:layout_marginBottom="36dp"
+                android:fontFamily="monospace"
+                android:gravity="center"
+                android:letterSpacing="0.16"
+                android:text="“DISCIPLINE\nBUILDS FREEDOM.”"
+                android:textColor="#AFAFAF"
+                android:textSize="12sp"
+                app:layout_constraintTop_toBottomOf="@id/btnEditProfile"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
+
+            <View
+                android:layout_width="22dp"
+                android:layout_height="3dp"
+                android:layout_marginTop="10dp"
+                android:background="#FF1744"
+                app:layout_constraintTop_toBottomOf="@id/tvQuote"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

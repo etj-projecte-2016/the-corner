@@ -1,0 +1,8 @@
+<resources>
+    <style name="ProfileStatColumn"><item name="android:layout_width">0dp</item><item name="android:layout_height">wrap_content</item><item name="android:layout_weight">1</item><item name="android:gravity">center</item><item name="android:orientation">vertical</item></style>
+    <style name="ProfileStatDivider"><item name="android:layout_width">1dp</item><item name="android:layout_height">74dp</item><item name="android:background">@color/corner_outline</item><item name="android:layout_marginHorizontal">8dp</item></style>
+    <style name="ProfileStatLabel"><item name="android:textColor">@color/corner_text_secondary</item><item name="android:textSize">10sp</item><item name="android:textStyle">bold</item><item name="android:letterSpacing">0.15</item></style>
+    <style name="ProfileStatValue"><item name="android:textColor">@color/corner_text_primary</item><item name="android:textSize">36sp</item><item name="android:textStyle">bold</item><item name="android:fontFamily">sans-serif-condensed</item></style>
+    <style name="ProfileStatUnit"><item name="android:textColor">@color/corner_text_secondary</item><item name="android:textSize">10sp</item><item name="android:letterSpacing">0.18</item></style>
+    <style name="ProfileInput"><item name="android:layout_width">match_parent</item><item name="android:layout_height">52dp</item><item name="android:layout_marginTop">8dp</item><item name="android:background">@drawable/bg_profile_input</item><item name="android:paddingHorizontal">16dp</item><item name="android:textColor">@color/corner_text_primary</item><item name="android:textColorHint">@color/corner_text_secondary</item><item name="android:textSize">18sp</item></style>
+</resources>

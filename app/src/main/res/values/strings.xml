@@ -105,4 +105,30 @@
     <string name="workout_type_pad">Pad work</string>
     <string name="workout_type_sparring">Sparring</string>
     <string name="workout_type_shadow">Shadow boxing</string>
+
+    <string name="profile_logo">The Corner logo</string>
+    <string name="profile_title">THE CORNER</string>
+    <string name="profile_section">BOXER PROFILE</string>
+    <string name="profile_name">NAME</string>
+    <string name="profile_age">AGE</string>
+    <string name="profile_weight">WEIGHT</string>
+    <string name="profile_height">HEIGHT</string>
+    <string name="profile_years">YEARS</string>
+    <string name="profile_kg">KG</string>
+    <string name="profile_cm">CM</string>
+    <string name="profile_empty_value">—</string>
+    <string name="profile_calorie_note">USED FOR
+CALORIE ESTIMATES</string>
+    <string name="profile_edit">EDIT PROFILE</string>
+    <string name="profile_edit_title">EDIT PROFILE</string>
+    <string name="profile_back">Back</string>
+    <string name="profile_age_hint">Age</string>
+    <string name="profile_name_hint">Boxer</string>
+    <string name="profile_weight_hint">Weight in kg</string>
+    <string name="profile_height_hint">Height in cm</string>
+    <string name="profile_save">SAVE</string>
+    <string name="profile_age_error">Enter an age from 10 to 100</string>
+    <string name="profile_name_error">Enter a name up to 40 characters</string>
+    <string name="profile_weight_error">Enter a weight from 30 to 250 kg</string>
+    <string name="profile_height_error">Enter a height from 120 to 230 cm</string>
 </resources>
