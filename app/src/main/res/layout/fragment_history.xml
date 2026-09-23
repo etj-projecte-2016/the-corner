@@ -36,16 +36,17 @@
     <HorizontalScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="8dp"
+        android:fillViewport="true"
         android:paddingHorizontal="16dp"
         android:scrollbars="none">
 
+        <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:gravity="center">
         <com.google.android.material.chip.ChipGroup
             android:id="@+id/filters"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:checkedChip="@id/filterAll"
-            android:layout_gravity="center"
             app:chipSpacingHorizontal="4dp"
             app:selectionRequired="true"
             app:singleLine="true"
@@ -76,7 +77,12 @@
                 style="@style/HistoryFilter"
                 android:text="@string/history_sparring" />
         </com.google.android.material.chip.ChipGroup>
+        </LinearLayout>
     </HorizontalScrollView>
+
+    <include android:id="@+id/summary" layout="@layout/history_summary"
+        android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp" android:layout_marginTop="8dp" android:visibility="gone" />
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -88,7 +94,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clipToPadding="false"
-            android:paddingHorizontal="20dp"
+            android:paddingHorizontal="16dp"
             android:paddingBottom="24dp" />
 
         <ProgressBar

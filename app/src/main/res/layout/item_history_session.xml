@@ -1,22 +1,32 @@
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="10dp"
-    android:clickable="true" android:focusable="true"
-    app:cardBackgroundColor="@color/corner_surface" app:cardCornerRadius="12dp"
-    app:cardElevation="2dp" app:strokeColor="@color/corner_outline" app:strokeWidth="1dp">
-    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-        android:gravity="center_vertical" android:padding="8dp">
-        <ImageView android:id="@+id/artwork" android:layout_width="64dp" android:layout_height="80dp"
-            android:background="@color/corner_background" android:scaleType="centerCrop" android:importantForAccessibility="no" />
-        <LinearLayout android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content"
-            android:orientation="vertical" android:paddingStart="12dp" android:paddingEnd="4dp" android:paddingVertical="8dp">
-            <TextView android:id="@+id/title" style="@style/HistoryTitle" android:textSize="18sp" />
-            <TextView android:id="@+id/date" style="@style/HistorySecondary" android:textSize="11sp" android:layout_marginTop="4dp" />
-            <TextView android:id="@+id/summary" style="@style/HistorySecondary" android:textSize="12sp" android:layout_marginTop="6dp" />
-            <TextView android:id="@+id/caloriesEstimate" style="@style/HistorySecondary" android:textSize="11sp" android:layout_marginTop="4dp" android:visibility="gone" />
-        </LinearLayout>
-        <ImageView android:layout_width="20dp" android:layout_height="20dp"
-            android:src="@drawable/ic_arrow_back" android:rotation="180"
-            app:tint="@color/corner_text_secondary" android:importantForAccessibility="no" />
+    android:layout_width="match_parent" android:layout_height="wrap_content"
+    android:layout_marginBottom="8dp" android:background="@drawable/bg_history_session"
+    android:foreground="?attr/selectableItemBackground" android:clickable="true"
+    android:focusable="true" android:gravity="center_vertical" android:padding="6dp">
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/artwork" android:layout_width="@dimen/history_artwork_size"
+        android:layout_height="@dimen/history_artwork_size" android:scaleType="centerCrop"
+        android:background="@color/corner_background" android:importantForAccessibility="no"
+        app:shapeAppearanceOverlay="@style/HistoryArtworkShape" />
+    <LinearLayout android:layout_width="0dp" android:layout_weight="1"
+        android:layout_height="wrap_content" android:orientation="vertical"
+        android:paddingStart="10dp" android:paddingEnd="2dp" android:paddingVertical="6dp">
+        <TextView android:id="@+id/title" style="@style/HistoryTitle" android:textSize="16sp" android:letterSpacing="0.03" />
+        <TextView android:id="@+id/date" style="@style/HistorySecondary" android:textSize="11sp" android:layout_marginTop="5dp" />
+        <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:layout_marginTop="8dp">
+            <TextView android:id="@+id/rounds" style="@style/HistorySecondary" android:textSize="10sp" />
+            <TextView android:id="@+id/duration" style="@style/HistorySecondary" android:textSize="10sp" />
+            <TextView android:id="@+id/caloriesEstimate" style="@style/HistorySecondary" android:textSize="10sp" />
+            <androidx.constraintlayout.helper.widget.Flow android:layout_width="0dp" android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"
+                app:constraint_referenced_ids="rounds,duration,caloriesEstimate"
+                app:flow_wrapMode="chain" app:flow_horizontalStyle="packed" app:flow_horizontalBias="0"
+                app:flow_horizontalGap="8dp" app:flow_verticalGap="5dp" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
-</com.google.android.material.card.MaterialCardView>
+    <ImageView android:layout_width="12dp" android:layout_height="20dp" android:layout_marginStart="2dp"
+        android:layout_marginEnd="2dp" android:src="@drawable/ic_history_chevron" android:importantForAccessibility="no" />
+</LinearLayout>

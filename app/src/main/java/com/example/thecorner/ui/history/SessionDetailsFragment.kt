@@ -54,7 +54,7 @@ class SessionDetailsFragment : Fragment() {
                     binding.messageBody.setText(if (state.hasError) R.string.history_error_body else R.string.history_missing_body)
                     state.session?.let { session ->
                         binding.workoutType.text = session.displayTitle(requireContext())
-                        binding.artwork.setImageResource(session.workoutType.historyImage())
+                        binding.artwork.setImageResource(session.workoutType.historyCardImage())
                         binding.date.text = sessionDate(session.date)
                         binding.time.text = sessionTime(session.date)
                         binding.rounds.text = NumberFormat.getIntegerInstance().format(session.totalRounds)

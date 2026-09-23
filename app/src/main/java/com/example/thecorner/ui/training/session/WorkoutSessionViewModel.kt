@@ -56,6 +56,31 @@ class WorkoutSessionViewModel(application: Application) : AndroidViewModel(appli
 
     private var configured = false
 
+    private val audio = WorkoutSessionAudio(application)
+    private var audioReady = false
+    private var screenActive = false
+    var hasStarted: Boolean = false
+        private set
+
+    init {
+        audio.load {
+            audioReady = true
+            startWhenReady()
+        }
+    }
+
+    fun setScreenActive(active: Boolean) {
+        screenActive = active
+        audio.setActive(active)
+        if (active) startWhenReady()
+    }
+
+    private fun startWhenReady() {
+        if (!configured || !audioReady || !screenActive || hasStarted || _state.value?.phase != Phase.PREPARING) return
+        hasStarted = true
+        startPreparing()
+    }
+
 
     fun configure(
         roundDurationSeconds: Int,
@@ -78,7 +103,7 @@ class WorkoutSessionViewModel(application: Application) : AndroidViewModel(appli
             restDurationSeconds = restDurationSeconds
         )
 
-        startPreparing()
+        startWhenReady()
     }
 
 
@@ -93,6 +118,7 @@ class WorkoutSessionViewModel(application: Application) : AndroidViewModel(appli
             remainingSeconds = 3,
             isPaused = false
         )
+        audio.play(WorkoutSessionAudio.Cue.COUNTDOWN)
 
         startTimer(
             durationMillis = 3000L
@@ -143,19 +169,23 @@ class WorkoutSessionViewModel(application: Application) : AndroidViewModel(appli
                 current.roundDurationSeconds * 1000L
         ) {
 
-            if (current.currentRound >= current.totalRounds) {
-
-                completeWorkout()
-
-            } else {
-
-                if (current.restDurationSeconds > 0) {
-                    startRest()
-                } else {
-                    startNextRound()
-                }
-            }
+            finishRound()
         }
+    }
+
+    private fun finishRound() {
+        val current = _state.value ?: return
+        if (current.phase != Phase.ROUND) return
+
+        if (current.currentRound >= current.totalRounds) {
+            completeWorkout()
+        } else if (current.restDurationSeconds > 0) {
+            startRest()
+        } else {
+            startNextRound()
+        }
+        // Play after the transition so completing the workout does not stop the bell.
+        audio.play(WorkoutSessionAudio.Cue.ROUND_END)
     }
 
 
@@ -292,21 +322,7 @@ class WorkoutSessionViewModel(application: Application) : AndroidViewModel(appli
                     durationMillis = remainingMillis
                 ) {
 
-                    val latest = _state.value ?: return@startTimer
-
-                    if (
-                        latest.currentRound >=
-                        latest.totalRounds
-                    ) {
-                        completeWorkout()
-                    } else {
-
-                        if (latest.restDurationSeconds > 0) {
-                            startRest()
-                        } else {
-                            startNextRound()
-                        }
-                    }
+                    finishRound()
                 }
             }
 
@@ -335,6 +351,7 @@ class WorkoutSessionViewModel(application: Application) : AndroidViewModel(appli
         if (_state.value?.phase == Phase.FINISHED) return
 
         timer?.cancel()
+        audio.stop()
 
         updateState(
             phase = Phase.FINISHED,
@@ -348,6 +365,7 @@ class WorkoutSessionViewModel(application: Application) : AndroidViewModel(appli
         if (current.phase == Phase.FINISHED) return
 
         timer?.cancel()
+        audio.stop()
         completedWorkout = Workout.completed(
             WorkoutConfig(current.roundDurationSeconds, current.restDurationSeconds,
                 current.totalRounds, current.workoutType),
@@ -413,6 +431,7 @@ class WorkoutSessionViewModel(application: Application) : AndroidViewModel(appli
     override fun onCleared() {
 
         timer?.cancel()
+        audio.release()
 
         super.onCleared()
     }

@@ -20,7 +20,11 @@ class HistoryViewModel(
         WorkoutType.fromStorageId(value)
     }.flatMapLatest { selected ->
         repository.getAllWorkouts()
-            .map { HistoryUiState(historyMonths(it, selected), selected, isLoading = false) }
+            .map {
+                val months = historyMonths(it, selected)
+                HistoryUiState(months, selected, isLoading = false,
+                    summary = historySummary(months.flatMap { month -> month.sessions }))
+            }
             .onStart { emit(HistoryUiState(selectedFilter = selected)) }
             .catch { emit(HistoryUiState(selectedFilter = selected, isLoading = false, hasError = true)) }
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), HistoryUiState(

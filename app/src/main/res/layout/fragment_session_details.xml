@@ -17,14 +17,17 @@
             android:clipToPadding="false" android:padding="20dp">
             <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical">
                 <com.google.android.material.card.MaterialCardView android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:clipToOutline="true"
                     app:cardBackgroundColor="@color/corner_surface" app:cardCornerRadius="12dp"
                     app:strokeColor="@color/corner_outline" app:strokeWidth="1dp" app:cardElevation="2dp">
-                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical">
-                        <ImageView android:id="@+id/artwork" android:layout_width="match_parent" android:layout_height="200dp"
+                    <FrameLayout android:layout_width="match_parent" android:layout_height="240dp">
+                        <ImageView android:id="@+id/artwork" android:layout_width="match_parent" android:layout_height="match_parent"
                             android:scaleType="centerCrop" android:importantForAccessibility="no" />
+                        <View android:layout_width="match_parent" android:layout_height="match_parent"
+                            android:background="@drawable/bg_session_artwork_scrim" android:importantForAccessibility="no" />
                         <TextView android:id="@+id/workoutType" style="@style/HistoryTitle"
-                            android:textSize="28sp" android:padding="16dp" />
-                    </LinearLayout>
+                            android:layout_gravity="bottom" android:textSize="28sp" android:padding="20dp" />
+                    </FrameLayout>
                 </com.google.android.material.card.MaterialCardView>
                 <com.google.android.material.card.MaterialCardView android:layout_width="match_parent" android:layout_height="wrap_content"
                     android:layout_marginTop="16dp" app:cardBackgroundColor="@color/corner_surface"

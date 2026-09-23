@@ -30,4 +30,17 @@
     <string name="history_duration_label">Total duration</string>
     <string name="history_rounds_label">Rounds</string>
     <string name="history_duration_note">Training time includes work and rests between rounds, excluding preparation and pauses.</string>
+    <string name="history_summary_sessions">SESSIONS</string>
+    <string name="history_summary_time">TOTAL TIME</string>
+    <string name="history_summary_month">THIS MONTH</string>
+    <string name="history_ended_at">Ended %1$s</string>
+    <string name="history_time_hours">%1$dh %2$dm</string>
+    <string name="history_time_seconds">%1$d sec</string>
+    <string name="history_time_minutes_seconds">%1$dm %2$ds</string>
+    <string name="history_kcal_compact">≈ %1$d kcal</string>
+    <string name="history_approximate_value">≈ %1$s</string>
+    <plurals name="history_session_count">
+        <item quantity="one">%d session</item>
+        <item quantity="other">%d sessions</item>
+    </plurals>
 </resources>

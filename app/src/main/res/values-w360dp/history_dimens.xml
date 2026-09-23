@@ -1,0 +1,4 @@
+<resources>
+    <dimen name="history_artwork_size">80dp</dimen>
+    <dimen name="history_date_width">42dp</dimen>
+</resources>

@@ -1,0 +1,24 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal">
+    <LinearLayout android:id="@+id/dayDate" android:layout_width="@dimen/history_date_width"
+        android:layout_height="wrap_content" android:orientation="vertical" android:paddingTop="1dp">
+        <TextView android:id="@+id/weekday" style="@style/HistorySecondary" android:textSize="10sp" android:letterSpacing="0.05" />
+        <TextView android:id="@+id/dayNumber" style="@style/HistoryTitle" android:textSize="29sp"
+            android:includeFontPadding="false" android:letterSpacing="0" />
+        <TextView android:id="@+id/monthYear" style="@style/HistorySecondary" android:textSize="9sp"
+            android:layout_marginTop="3dp" android:fontFamily="sans-serif-condensed" />
+    </LinearLayout>
+    <FrameLayout android:layout_width="16dp" android:layout_height="match_parent">
+        <View android:layout_width="1dp" android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal" android:background="@color/corner_outline" />
+        <View android:id="@+id/dot" android:layout_width="6dp" android:layout_height="6dp"
+            android:layout_marginTop="20dp" android:layout_gravity="center_horizontal" android:background="@drawable/bg_day_inactive" />
+    </FrameLayout>
+    <LinearLayout android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content"
+        android:orientation="vertical" android:paddingStart="6dp" android:paddingBottom="14dp">
+        <TextView android:id="@+id/daySummary" style="@style/HistorySecondary" android:textSize="9sp"
+            android:letterSpacing="0.03" android:layout_marginBottom="8dp" />
+        <LinearLayout android:id="@+id/cards" android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:orientation="vertical" />
+    </LinearLayout>
+</LinearLayout>

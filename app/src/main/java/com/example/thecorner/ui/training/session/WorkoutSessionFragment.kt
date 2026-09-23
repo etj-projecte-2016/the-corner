@@ -59,6 +59,8 @@ class WorkoutSessionFragment : Fragment() {
         }
 
         setupButtons()
+        // Reveal the initial 3 only when samples are ready and the countdown actually starts.
+        if (!viewModel.hasStarted) binding.root.visibility = View.INVISIBLE
         observeState()
 
         viewModel.configure(
@@ -88,6 +90,9 @@ class WorkoutSessionFragment : Fragment() {
             viewLifecycleOwner
         ) { state ->
 
+            if (viewModel.hasStarted || state.phase == WorkoutSessionViewModel.Phase.FINISHED) {
+                binding.root.visibility = View.VISIBLE
+            }
             renderState(state)
         }
     }
@@ -1084,6 +1089,16 @@ class WorkoutSessionFragment : Fragment() {
                 ).toInt()
     }
 
+
+    override fun onStart() {
+        super.onStart()
+        viewModel.setScreenActive(true)
+    }
+
+    override fun onStop() {
+        viewModel.setScreenActive(false)
+        super.onStop()
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()

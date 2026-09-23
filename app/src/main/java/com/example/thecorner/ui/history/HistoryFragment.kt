@@ -20,6 +20,8 @@ import com.example.thecorner.TheCornerApplication
 import com.example.thecorner.databinding.FragmentHistoryBinding
 import com.example.thecorner.model.WorkoutType
 import kotlinx.coroutines.launch
+import java.text.NumberFormat
+import kotlin.math.roundToLong
 
 class HistoryFragment : Fragment() {
     private var _binding: FragmentHistoryBinding? = null
@@ -68,6 +70,16 @@ class HistoryFragment : Fragment() {
                     binding.sessions.isVisible = !state.isLoading && !state.hasError && !state.isEmpty
                     binding.message.isVisible = state.isEmpty || state.hasError
                     binding.retry.isVisible = state.hasError
+                    binding.summary.root.isVisible = !state.isLoading && !state.hasError
+                    val summary = state.summary
+                    binding.summary.sessionCount.text = NumberFormat.getIntegerInstance().format(summary.sessions)
+                    binding.summary.totalTime.text = historyCompactDuration(requireContext(), summary.durationSeconds)
+                    binding.summary.thisMonth.text = NumberFormat.getIntegerInstance().format(summary.sessionsThisMonth)
+                    binding.summary.calorieColumn.isVisible = summary.estimatedCalories != null
+                    binding.summary.calorieDivider.isVisible = summary.estimatedCalories != null
+                    binding.summary.totalCalories.text = summary.estimatedCalories?.let {
+                        getString(R.string.history_approximate_value, NumberFormat.getIntegerInstance().format(it.roundToLong()))
+                    }
                     binding.messageTitle.setText(when {
                         state.hasError -> R.string.history_error_title
                         state.selectedFilter != null -> R.string.history_filter_empty_title

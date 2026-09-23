@@ -13,6 +13,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import com.example.thecorner.R
 import com.example.thecorner.databinding.FragmentHomeBinding
 import com.example.thecorner.model.Workout
+import com.example.thecorner.ui.history.historyCardImage
 import com.example.thecorner.ui.training.labelRes
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
@@ -119,6 +120,11 @@ class HomeFragment : Fragment() {
         })
         binding.cardLastSession.isClickable = workout != null
         binding.cardLastSession.isFocusable = workout != null
+        binding.ivLastSession.visibility = if (workout == null) View.INVISIBLE else View.VISIBLE
+        binding.ivLastSession.setImageResource(workout?.workoutType.historyCardImage())
+        binding.ivLastSession.contentDescription = getString(
+            workout?.workoutType?.labelRes() ?: R.string.home_boxing
+        )
 
         if (workout == null) {
             binding.tvLastSessionType.setText(
