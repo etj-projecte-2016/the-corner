@@ -131,4 +131,11 @@ CALORIE ESTIMATES</string>
     <string name="profile_name_error">Enter a name up to 40 characters</string>
     <string name="profile_weight_error">Enter a weight from 30 to 250 kg</string>
     <string name="profile_height_error">Enter a height from 120 to 230 cm</string>
+    <string name="ai_title">THE CORNER AI</string>
+    <string name="ai_subtitle">FIREBASE AI LOGIC TEST</string>
+    <string name="ai_status_label">Status</string>
+    <string name="ai_status_ready">Ready</string>
+    <string name="ai_status_generating">Generating</string>
+    <string name="ai_status_error">Error</string>
+    <string name="ai_check_button">RUN CLOUD AI TEST</string>
 </resources>
