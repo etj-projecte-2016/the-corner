@@ -18,6 +18,7 @@ class TheCornerApplication : Application() {
 
         Firebase.initialize(context = this)
         if (applicationInfo.flags and ApplicationInfo.FLAG_DEBUGGABLE != 0) {
+            // Debug builds use the Debug provider only. TODO: configure Play Integrity for release builds.
             val appCheck = FirebaseAppCheck.getInstance()
             appCheck.installAppCheckProviderFactory(
                 DebugAppCheckProviderFactory.getInstance(),
