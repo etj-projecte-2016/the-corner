@@ -4,14 +4,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/corner_background">
+    android:background="@color/background">
 
     <ScrollView
         android:id="@+id/profileScroll"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:fillViewport="true"
         android:clipToPadding="false"
+        android:fillViewport="true"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -20,42 +20,43 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:minHeight="760dp">
+            android:paddingBottom="@dimen/space_5">
 
-            <!-- HERO / PLACEHOLDER BOXER IMAGE -->
             <ImageView
                 android:id="@+id/ivProfileHero"
                 android:layout_width="0dp"
-                android:layout_height="430dp"
-                android:contentDescription="@string/profile_title"
+                android:layout_height="0dp"
+                android:contentDescription="@null"
+                android:importantForAccessibility="no"
                 android:scaleType="centerCrop"
                 android:src="@drawable/profile_boxer_placeholder"
+                app:layout_constraintDimensionRatio="H,0.84"
+                app:layout_constraintHeight_max="430dp"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
 
-            <!-- DARK OVERLAY -->
             <View
                 android:id="@+id/heroOverlay"
                 android:layout_width="0dp"
-                android:layout_height="430dp"
+                android:layout_height="0dp"
                 android:background="@drawable/bg_profile_hero_gradient"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toTopOf="@id/ivProfileHero"
+                app:layout_constraintBottom_toBottomOf="@id/ivProfileHero"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
 
-            <!-- THE CORNER -->
             <TextView
                 android:id="@+id/tvBrand"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="30dp"
+                android:layout_marginStart="@dimen/space_5"
+                android:layout_marginTop="@dimen/space_5"
                 android:fontFamily="sans-serif-condensed"
                 android:gravity="start"
                 android:lineSpacingExtra="-4dp"
-                android:text="THE\nCORNER"
-                android:textColor="@android:color/white"
+                android:text="@string/profile_brand"
+                android:textColor="@color/text_primary"
                 android:textSize="30sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
@@ -63,318 +64,269 @@
 
             <TextView
                 android:id="@+id/tvBrandSubtitle"
+                style="@style/TheCorner.Text.Caption"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginStart="@dimen/space_5"
+                android:layout_marginTop="@dimen/space_2"
                 android:fontFamily="monospace"
                 android:letterSpacing="0.16"
-                android:text="BOXING TRACKS.\nREAL PROGRESS."
-                android:textColor="#AFAFAF"
-                android:textSize="10sp"
+                android:text="@string/profile_brand_subtitle"
+                android:textColor="@color/text_secondary"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tvBrand" />
 
             <View
                 android:layout_width="20dp"
                 android:layout_height="2dp"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="10dp"
-                android:background="#FF1744"
+                android:layout_marginStart="@dimen/space_5"
+                android:layout_marginTop="@dimen/space_2"
+                android:background="@color/accent_red"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tvBrandSubtitle" />
 
-            <!-- RIGHT MOTTO -->
-            <TextView
-                android:id="@+id/tvHeroMotto"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/profileIdentity"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="38dp"
-                android:layout_marginEnd="24dp"
-                android:fontFamily="monospace"
-                android:gravity="end"
-                android:letterSpacing="0.18"
-                android:text="SAME\nWORK\nDIFFERENT\nYOU"
-                android:textColor="#AAAAAA"
-                android:textSize="9sp"
+                android:layout_marginStart="@dimen/space_5"
+                android:layout_marginEnd="@dimen/space_5"
+                android:layout_marginBottom="@dimen/space_7"
+                android:orientation="vertical"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintBottom_toBottomOf="@id/ivProfileHero">
 
-            <View
-                android:layout_width="20dp"
-                android:layout_height="2dp"
-                android:layout_marginTop="9dp"
-                android:background="#FF1744"
-                app:layout_constraintEnd_toEndOf="@id/tvHeroMotto"
-                app:layout_constraintTop_toBottomOf="@id/tvHeroMotto" />
+                <TextView
+                    android:id="@+id/tvProfileName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="monospace"
+                    android:letterSpacing="0.18"
+                    android:maxLines="2"
+                    android:text="@string/profile_default_name"
+                    android:textColor="@color/text_primary"
+                    android:textSize="25sp"
+                    android:textStyle="bold" />
 
-            <!-- PROFILE NAME -->
-            <TextView
-                android:id="@+id/tvProfileName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="300dp"
-                android:fontFamily="monospace"
-                android:letterSpacing="0.18"
-                android:text="ERIC"
-                android:textColor="@android:color/white"
-                android:textSize="25sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                <View
+                    android:id="@+id/nameAccent"
+                    android:layout_width="22dp"
+                    android:layout_height="3dp"
+                    android:layout_marginTop="@dimen/space_1"
+                    android:background="@color/accent_red" />
 
-            <View
-                android:id="@+id/nameAccent"
-                android:layout_width="22dp"
-                android:layout_height="3dp"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="7dp"
-                android:background="#FF1744"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvProfileName" />
+                <TextView
+                    android:id="@+id/tvProfileType"
+                    style="@style/TheCorner.Text.Caption"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_2"
+                    android:fontFamily="monospace"
+                    android:letterSpacing="0.2"
+                    android:text="@string/profile_section"
+                    android:textColor="@color/text_secondary" />
+            </LinearLayout>
 
-            <TextView
-                android:id="@+id/tvProfileType"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="8dp"
-                android:fontFamily="monospace"
-                android:letterSpacing="0.2"
-                android:text="BOXER PROFILE"
-                android:textColor="#AFAFAF"
-                android:textSize="11sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/nameAccent" />
-
-            <!-- STATS CARD -->
             <LinearLayout
                 android:id="@+id/statsCard"
                 android:layout_width="0dp"
-                android:layout_height="172dp"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="18dp"
-                android:layout_marginEnd="24dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/space_5"
+                android:layout_marginTop="@dimen/space_4"
+                android:layout_marginEnd="@dimen/space_5"
                 android:background="@drawable/bg_profile_card"
                 android:orientation="vertical"
-                android:paddingTop="22dp"
-                android:paddingBottom="14dp"
+                android:paddingTop="@dimen/space_4"
+                android:paddingBottom="@dimen/space_2"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvProfileType">
+                app:layout_constraintTop_toBottomOf="@id/profileIdentity">
 
                 <LinearLayout
+                    android:id="@+id/statsRow"
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:minHeight="112dp"
                     android:orientation="horizontal">
 
-                    <!-- AGE -->
                     <LinearLayout
                         android:layout_width="0dp"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="center"
                         android:orientation="vertical">
-
                         <TextView
+                            style="@style/TheCorner.Text.Caption"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="monospace"
                             android:letterSpacing="0.2"
-                            android:text="AGE"
-                            android:textColor="#AFAFAF"
-                            android:textSize="9sp" />
-
+                            android:text="@string/profile_age" />
                         <TextView
                             android:id="@+id/tvAge"
+                            style="@style/ProfileStatValue"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="sans-serif-condensed"
-                            android:text="31"
-                            android:textColor="@android:color/white"
-                            android:textSize="38sp"
-                            android:textStyle="bold" />
-
+                            android:layout_marginTop="@dimen/space_1"
+                            android:text="31" />
                         <TextView
+                            style="@style/ProfileStatUnit"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="monospace"
-                            android:letterSpacing="0.14"
-                            android:text="YEARS"
-                            android:textColor="#AAAAAA"
-                            android:textSize="9sp" />
-
+                            android:layout_marginTop="@dimen/space_1"
+                            android:text="@string/profile_years" />
                     </LinearLayout>
 
                     <View
                         android:layout_width="1dp"
                         android:layout_height="match_parent"
-                        android:layout_marginVertical="5dp"
-                        android:background="#353535" />
+                        android:layout_marginVertical="@dimen/space_1"
+                        android:background="@color/border" />
 
-                    <!-- WEIGHT -->
                     <LinearLayout
                         android:layout_width="0dp"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="center"
                         android:orientation="vertical">
-
                         <TextView
+                            style="@style/TheCorner.Text.Caption"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="monospace"
                             android:letterSpacing="0.2"
-                            android:text="WEIGHT"
-                            android:textColor="#AFAFAF"
-                            android:textSize="9sp" />
-
+                            android:text="@string/profile_weight" />
                         <TextView
                             android:id="@+id/tvWeight"
+                            style="@style/ProfileStatValue"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="sans-serif-condensed"
-                            android:text="75"
-                            android:textColor="@android:color/white"
-                            android:textSize="38sp"
-                            android:textStyle="bold" />
-
+                            android:layout_marginTop="@dimen/space_1"
+                            android:text="75" />
                         <TextView
+                            style="@style/ProfileStatUnit"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="monospace"
-                            android:letterSpacing="0.14"
-                            android:text="KG"
-                            android:textColor="#AAAAAA"
-                            android:textSize="9sp" />
-
+                            android:layout_marginTop="@dimen/space_1"
+                            android:text="@string/profile_kg" />
                     </LinearLayout>
 
                     <View
                         android:layout_width="1dp"
                         android:layout_height="match_parent"
-                        android:layout_marginVertical="5dp"
-                        android:background="#353535" />
+                        android:layout_marginVertical="@dimen/space_1"
+                        android:background="@color/border" />
 
-                    <!-- HEIGHT -->
                     <LinearLayout
                         android:layout_width="0dp"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="center"
                         android:orientation="vertical">
-
                         <TextView
+                            style="@style/TheCorner.Text.Caption"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="monospace"
                             android:letterSpacing="0.2"
-                            android:text="HEIGHT"
-                            android:textColor="#AFAFAF"
-                            android:textSize="9sp" />
-
+                            android:text="@string/profile_height" />
                         <TextView
                             android:id="@+id/tvHeight"
+                            style="@style/ProfileStatValue"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="sans-serif-condensed"
-                            android:text="180"
-                            android:textColor="@android:color/white"
-                            android:textSize="38sp"
-                            android:textStyle="bold" />
-
+                            android:layout_marginTop="@dimen/space_1"
+                            android:text="180" />
                         <TextView
+                            style="@style/ProfileStatUnit"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="monospace"
-                            android:letterSpacing="0.14"
-                            android:text="CM"
-                            android:textColor="#AAAAAA"
-                            android:textSize="9sp" />
-
+                            android:layout_marginTop="@dimen/space_1"
+                            android:text="@string/profile_cm" />
                     </LinearLayout>
-
                 </LinearLayout>
 
                 <TextView
+                    style="@style/TheCorner.Text.Caption"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:fontFamily="monospace"
                     android:letterSpacing="0.18"
-                    android:text="USED FOR\nCALORIE ESTIMATES"
-                    android:textColor="#999999"
-                    android:textSize="7sp" />
-
+                    android:text="@string/profile_calorie_note" />
             </LinearLayout>
 
-            <!-- EDIT PROFILE -->
             <LinearLayout
                 android:id="@+id/btnEditProfile"
                 android:layout_width="0dp"
-                android:layout_height="58dp"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="24dp"
+                android:layout_height="wrap_content"
+                android:minHeight="58dp"
+                android:layout_marginStart="@dimen/space_5"
+                android:layout_marginTop="@dimen/space_4"
+                android:layout_marginEnd="@dimen/space_5"
                 android:background="@drawable/bg_profile_button"
                 android:clickable="true"
                 android:focusable="true"
+                android:foreground="?attr/selectableItemBackground"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:paddingStart="20dp"
-                android:paddingEnd="18dp"
+                android:paddingStart="@dimen/space_4"
+                android:paddingEnd="@dimen/space_4"
+                android:contentDescription="@string/profile_edit"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/statsCard">
 
                 <TextView
+                    style="@style/TheCorner.Text.Body"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Edit profile"
-                    android:textColor="@android:color/white"
-                    android:textSize="16sp" />
+                    android:text="@string/profile_edit"
+                    android:textColor="@color/text_primary" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="›"
-                    android:textColor="@android:color/white"
-                    android:textSize="32sp" />
-
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:contentDescription="@null"
+                    android:importantForAccessibility="no"
+                    android:src="@drawable/ic_history_chevron"
+                    android:tint="@color/text_primary" />
             </LinearLayout>
 
-            <!-- QUOTE -->
-            <TextView
-                android:id="@+id/tvQuote"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/developerTools"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="36dp"
-                android:layout_marginBottom="36dp"
-                android:fontFamily="monospace"
-                android:gravity="center"
-                android:letterSpacing="0.16"
-                android:text="“DISCIPLINE\nBUILDS FREEDOM.”"
-                android:textColor="#AFAFAF"
-                android:textSize="12sp"
-                app:layout_constraintTop_toBottomOf="@id/btnEditProfile"
+                android:layout_marginStart="@dimen/space_5"
+                android:layout_marginTop="@dimen/space_4"
+                android:layout_marginEnd="@dimen/space_5"
+                android:background="@color/surface_variant"
+                android:orientation="vertical"
+                android:padding="@dimen/space_4"
+                android:visibility="gone"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent" />
+                app:layout_constraintTop_toBottomOf="@id/btnEditProfile">
 
-            <View
-                android:layout_width="22dp"
-                android:layout_height="3dp"
-                android:layout_marginTop="10dp"
-                android:background="#FF1744"
-                app:layout_constraintTop_toBottomOf="@id/tvQuote"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                <Button
+                    android:id="@+id/btnDebugSeedWorkouts"
+                    style="@style/TheCorner.Button.Secondary"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/profile_debug_seed_workouts" />
+
+                <Button
+                    android:id="@+id/btnDebugClearWorkouts"
+                    style="@style/TheCorner.Button.Secondary"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_2"
+                    android:text="@string/profile_debug_clear_workouts" />
+            </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
     </ScrollView>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

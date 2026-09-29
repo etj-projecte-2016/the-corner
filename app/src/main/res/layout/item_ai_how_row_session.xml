@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="top" android:orientation="horizontal" android:paddingVertical="8dp">
+    <ImageView android:layout_width="42dp" android:layout_height="42dp" android:background="@drawable/bg_ai_info_icon" android:contentDescription="@null" android:importantForAccessibility="no" android:padding="9dp" android:src="@drawable/ic_timer" android:tint="@color/corner_text_primary" />
+    <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginStart="16dp" android:layout_weight="1" android:orientation="vertical">
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:fontFamily="sans-serif-condensed" android:letterSpacing="0.05" android:text="@string/ai_how_row_session_title" android:textColor="@color/corner_text_primary" android:textSize="13sp" android:textStyle="bold" />
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="3dp" android:text="@string/ai_how_row_session_body" android:textColor="@color/corner_text_secondary" android:textSize="13sp" />
+    </LinearLayout>
+</LinearLayout>

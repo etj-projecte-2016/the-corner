@@ -6,6 +6,7 @@ import androidx.datastore.preferences.core.MutablePreferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.floatPreferencesKey
 import androidx.datastore.preferences.core.intPreferencesKey
+import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import com.example.thecorner.model.UserProfile
 import com.example.thecorner.model.ProfileDefaults
@@ -20,6 +21,7 @@ class ProfileDataStore(private val context: Context) {
         val age = intPreferencesKey("age")
         val weightKg = floatPreferencesKey("weight_kg")
         val heightCm = intPreferencesKey("height_cm")
+        val onboardingCompleted = booleanPreferencesKey("onboarding_completed")
     }
 
     val profile: Flow<UserProfile> = context.profileDataStore.data.map { preferences ->
@@ -31,12 +33,26 @@ class ProfileDataStore(private val context: Context) {
         )
     }
 
+    val onboardingCompleted: Flow<Boolean> = context.profileDataStore.data.map { preferences ->
+        preferences[Keys.onboardingCompleted] ?: false
+    }
+
     suspend fun save(profile: UserProfile) {
         context.profileDataStore.edit { preferences ->
             putOrRemove(preferences, Keys.name, profile.name.trim().ifEmpty { ProfileDefaults.DEFAULT_NAME })
             putOrRemove(preferences, Keys.age, profile.age)
             putOrRemove(preferences, Keys.weightKg, profile.weightKg)
             putOrRemove(preferences, Keys.heightCm, profile.heightCm)
+        }
+    }
+
+    suspend fun completeOnboarding(profile: UserProfile) {
+        context.profileDataStore.edit { preferences ->
+            putOrRemove(preferences, Keys.name, profile.name.trim().ifEmpty { ProfileDefaults.DEFAULT_NAME })
+            putOrRemove(preferences, Keys.age, profile.age)
+            putOrRemove(preferences, Keys.weightKg, profile.weightKg)
+            putOrRemove(preferences, Keys.heightCm, profile.heightCm)
+            preferences[Keys.onboardingCompleted] = true
         }
     }
 

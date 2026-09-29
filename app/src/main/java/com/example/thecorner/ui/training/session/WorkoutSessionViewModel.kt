@@ -25,6 +25,8 @@ class WorkoutSessionViewModel(application: Application) : AndroidViewModel(appli
 
     enum class SaveStatus { NOT_REQUIRED, SAVING, SAVED, FAILED }
 
+    enum class CompletionType { NONE, NATURAL, MANUAL }
+
     private var completedWorkout: Workout? = null
 
     enum class Phase {
@@ -44,7 +46,10 @@ class WorkoutSessionViewModel(application: Application) : AndroidViewModel(appli
         val roundDurationSeconds: Int = 180,
         val restDurationSeconds: Int = 60,
         val isPaused: Boolean = false,
-        val saveStatus: SaveStatus = SaveStatus.NOT_REQUIRED
+        val saveStatus: SaveStatus = SaveStatus.NOT_REQUIRED,
+        val completedRounds: Int = 0,
+        val completionType: CompletionType = CompletionType.NONE,
+        val completedWorkout: Workout? = null
     )
 
     private val _state = MutableLiveData(SessionState())
@@ -177,9 +182,15 @@ class WorkoutSessionViewModel(application: Application) : AndroidViewModel(appli
         val current = _state.value ?: return
         if (current.phase != Phase.ROUND) return
 
-        if (current.currentRound >= current.totalRounds) {
-            completeWorkout()
-        } else if (current.restDurationSeconds > 0) {
+        val updated = current.copy(
+            completedRounds = (current.completedRounds + 1)
+                .coerceAtMost(current.totalRounds)
+        )
+        _state.value = updated
+
+        if (updated.currentRound >= updated.totalRounds) {
+            completeWorkout(CompletionType.NATURAL)
+        } else if (updated.restDurationSeconds > 0) {
             startRest()
         } else {
             startNextRound()
@@ -348,27 +359,38 @@ class WorkoutSessionViewModel(application: Application) : AndroidViewModel(appli
 
     fun finishWorkout() {
 
-        if (_state.value?.phase == Phase.FINISHED) return
+        val current = _state.value ?: return
+        if (current.phase == Phase.FINISHED) return
 
-        timer?.cancel()
-        audio.stop()
+        val completionType = if (
+            current.completedRounds >= current.totalRounds
+        ) {
+            CompletionType.NATURAL
+        } else {
+            CompletionType.MANUAL
+        }
 
-        updateState(
-            phase = Phase.FINISHED,
-            remainingSeconds = 0,
-            isPaused = false
-        )
+        completeWorkout(completionType)
     }
 
-    private fun completeWorkout() {
+    private fun completeWorkout(
+        completionType: CompletionType
+    ) {
         val current = _state.value ?: return
         if (current.phase == Phase.FINISHED) return
 
         timer?.cancel()
         audio.stop()
+        val completedRounds = current.completedRounds
+            .coerceIn(0, current.totalRounds)
+        val completedConfig = WorkoutConfig(
+            roundDurationSeconds = current.roundDurationSeconds,
+            restDurationSeconds = current.restDurationSeconds,
+            numberOfRounds = completedRounds,
+            workoutType = current.workoutType
+        )
         completedWorkout = Workout.completed(
-            WorkoutConfig(current.roundDurationSeconds, current.restDurationSeconds,
-                current.totalRounds, current.workoutType),
+            completedConfig,
             System.currentTimeMillis(),
             // Future profile weight is resolved here; the calculator only receives the value.
             weightKg = WorkoutEnergyDefaults.DEFAULT_WEIGHT_KG
@@ -377,14 +399,26 @@ class WorkoutSessionViewModel(application: Application) : AndroidViewModel(appli
             phase = Phase.FINISHED,
             remainingSeconds = 0,
             isPaused = false,
-            saveStatus = SaveStatus.SAVING
+            saveStatus = if (completionType == CompletionType.NATURAL) {
+                SaveStatus.SAVING
+            } else {
+                SaveStatus.NOT_REQUIRED
+            },
+            completionType = completionType,
+            completedWorkout = completedWorkout
         )
-        saveCompletedWorkout()
+
+        if (completionType == CompletionType.NATURAL) {
+            saveCompletedWorkout()
+        }
     }
 
     fun retrySave() {
         val current = _state.value ?: return
-        if (current.saveStatus != SaveStatus.FAILED) return
+        if (
+            current.completionType != CompletionType.NATURAL ||
+            current.saveStatus != SaveStatus.FAILED
+        ) return
         _state.value = current.copy(saveStatus = SaveStatus.SAVING)
         saveCompletedWorkout()
     }

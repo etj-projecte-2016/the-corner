@@ -1,5 +1,10 @@
 package com.example.thecorner.ui.ai
 
+import com.example.thecorner.model.WorkoutAnalysis
+
 interface AIService {
-    suspend fun runConnectivityTest(): AIResult<String>
+    val isConfigured: Boolean
+        get() = true
+
+    suspend fun analyzeLastSession(prompt: String): AIResult<WorkoutAnalysis>
 }

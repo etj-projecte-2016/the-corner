@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Semantic aliases for the existing The Corner palette. -->
+    <color name="background">@color/corner_background</color>
+    <color name="surface">@color/corner_surface</color>
+    <color name="surface_variant">@color/corner_surface_variant</color>
+    <color name="surface_elevated">@color/corner_surface_variant</color>
+    <color name="text_primary">@color/corner_text_primary</color>
+    <color name="text_secondary">@color/corner_text_secondary</color>
+    <color name="border">@color/corner_outline</color>
+    <color name="divider">@color/corner_divider</color>
+    <color name="accent_red">@color/corner_red</color>
+    <color name="accent_red_dark">@color/corner_red_dark</color>
+
+    <!-- AI semantic colors retain their existing values. -->
+    <color name="positive">@color/ai_positive</color>
+    <color name="improvement">@color/ai_improvement</color>
+    <color name="focus">@color/ai_focus</color>
+</resources>

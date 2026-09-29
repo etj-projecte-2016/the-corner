@@ -13,6 +13,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import com.example.thecorner.R
 import com.example.thecorner.databinding.FragmentHomeBinding
 import com.example.thecorner.model.Workout
+import com.example.thecorner.ui.applyTopSystemBarInset
 import com.example.thecorner.ui.history.historyCardImage
 import com.example.thecorner.ui.training.labelRes
 import kotlinx.coroutines.launch
@@ -53,6 +54,7 @@ class HomeFragment : Fragment() {
 
         observeUiState()
         setupBottomNavigationBehavior()
+        binding.homeHeroContent.applyTopSystemBarInset()
         binding.viewAllSessions.setOnClickListener {
             findNavController().navigate(R.id.action_home_to_history)
         }

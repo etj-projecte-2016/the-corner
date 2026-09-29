@@ -13,6 +13,9 @@ import androidx.navigation.fragment.findNavController
 import com.example.thecorner.R
 import com.example.thecorner.databinding.FragmentEditProfileBinding
 import com.example.thecorner.model.UserProfile
+import com.example.thecorner.model.ProfileField
+import com.example.thecorner.model.ProfileValidator
+import com.example.thecorner.ui.applyTopAndImeInsets
 
 class EditProfileFragment : Fragment() {
     private var _binding: FragmentEditProfileBinding? = null
@@ -26,6 +29,7 @@ class EditProfileFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        binding.formContent.applyTopAndImeInsets()
         profileViewModel.profile.observe(viewLifecycleOwner) { profile ->
             if (!binding.nameInput.hasFocus()) binding.nameInput.setText(profile.name)
             if (!binding.ageInput.hasFocus()) binding.ageInput.setText(profile.age?.toString().orEmpty())
@@ -44,12 +48,20 @@ class EditProfileFragment : Fragment() {
         val age = binding.ageInput.text.toString().trim().toIntOrNull()
         val weight = binding.weightInput.text.toString().trim().toFloatOrNull()
         val height = binding.heightInput.text.toString().trim().toIntOrNull()
-        var valid = true
-        if (name.isBlank() || name.length > 40) { binding.nameInput.error = getString(R.string.profile_name_error); valid = false }
-        if (age == null || age !in 10..100) { binding.ageInput.error = getString(R.string.profile_age_error); valid = false }
-        if (weight == null || weight !in 30f..250f) { binding.weightInput.error = getString(R.string.profile_weight_error); valid = false }
-        if (height == null || height !in 120..230) { binding.heightInput.error = getString(R.string.profile_height_error); valid = false }
-        if (!valid) return
+        val validation = ProfileValidator.validate(name, age, weight, height)
+        binding.nameInput.error = if (ProfileField.NAME in validation.invalidFields) {
+            getString(R.string.profile_name_error)
+        } else null
+        binding.ageInput.error = if (ProfileField.AGE in validation.invalidFields) {
+            getString(R.string.profile_age_error)
+        } else null
+        binding.weightInput.error = if (ProfileField.WEIGHT in validation.invalidFields) {
+            getString(R.string.profile_weight_error)
+        } else null
+        binding.heightInput.error = if (ProfileField.HEIGHT in validation.invalidFields) {
+            getString(R.string.profile_height_error)
+        } else null
+        if (!validation.isValid) return
 
         viewModel.save(UserProfile(name, age, weight, height)) {
             binding.root.findFocus()?.clearFocus()

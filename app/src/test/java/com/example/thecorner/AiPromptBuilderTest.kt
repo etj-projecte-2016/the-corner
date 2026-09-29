@@ -9,15 +9,35 @@ import org.junit.Test
 
 class AiPromptBuilderTest {
     @Test
-    fun promptContainsOnlySuppliedSessionFacts() {
-        val latest = Workout.completed(WorkoutConfig(180, 60, 8, WorkoutType.BAG_WORK), 100L)
-        val previous = Workout.completed(WorkoutConfig(120, 30, 4, WorkoutType.PAD_WORK), 200L)
+    fun analysisPromptSetsBoxingCoachRulesAndUsesDerivedStructure() {
+        val workout = Workout.completed(WorkoutConfig(180, 60, 8, WorkoutType.BAG_WORK), 100L)
 
-        val prompt = AiPromptBuilder.build(latest, listOf(previous))
+        val prompt = AiPromptBuilder.buildAnalysisPrompt(workout)
 
-        assertTrue(prompt.contains("Type: BAG_WORK"))
+        assertTrue(prompt.contains("Type: bag work"))
         assertTrue(prompt.contains("Rounds: 8"))
-        assertTrue(prompt.contains("Type: PAD_WORK"))
-        assertTrue(prompt.contains("Do not invent technique"))
+        assertTrue(prompt.contains("Interpret what the workout structure means instead of repeating statistics"))
+        assertTrue(prompt.contains("Never invent or claim"))
+        assertTrue(prompt.contains("punch count, speed, accuracy, power"))
+        assertTrue(prompt.contains("Bag work: conditioning, purposeful combination structure"))
+        assertTrue(prompt.contains("nextSessionFocus: make this the most actionable field"))
+        assertTrue(prompt.contains("Work-to-rest ratio:"))
+        assertTrue(!prompt.contains("weight"))
+    }
+
+    @Test
+    fun promptDistinguishesWorkoutTypesAndKeepsSafetyRules() {
+        val workout = Workout.completed(WorkoutConfig(180, 60, 8, WorkoutType.BAG_WORK), 100L)
+
+        val prompt = AiPromptBuilder.buildAnalysisPrompt(workout)
+
+        assertTrue(prompt.contains("Type: bag work"))
+        assertTrue(prompt.contains("Rounds: 8"))
+        assertTrue(prompt.contains("technique quality"))
+        assertTrue(prompt.contains("Do not claim"))
+        assertTrue(prompt.contains("that a boxer improved or performed well"))
+        assertTrue(prompt.contains("Pad work: timing, accuracy, reactions"))
+        assertTrue(prompt.contains("Sparring: tactical development, distance management"))
+        assertTrue(prompt.contains("Shadow boxing: movement, technique rehearsal"))
     }
 }

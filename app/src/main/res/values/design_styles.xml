@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Hierarchy anchors required by Android for dotted style names. -->
+    <style name="TheCorner" />
+    <style name="TheCorner.Text" />
+    <style name="TheCorner.Button" />
+    <style name="TheCorner.Card" />
+
+    <!-- Semantic text styles. Existing screen-specific styles remain available during migration. -->
+    <style name="TheCorner.Text.Display">
+        <item name="android:fontFamily">sans-serif-condensed</item>
+        <item name="android:textSize">38sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/text_primary</item>
+    </style>
+
+    <style name="TheCorner.Text.ScreenTitle">
+        <item name="android:fontFamily">sans-serif-condensed</item>
+        <item name="android:letterSpacing">0.08</item>
+        <item name="android:textSize">28sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/text_primary</item>
+    </style>
+
+    <style name="TheCorner.Text.SectionTitle">
+        <item name="android:fontFamily">sans-serif-condensed</item>
+        <item name="android:textSize">22sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/text_primary</item>
+    </style>
+
+    <style name="TheCorner.Text.CardTitle">
+        <item name="android:fontFamily">sans-serif-condensed</item>
+        <item name="android:letterSpacing">0.05</item>
+        <item name="android:textSize">17sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/text_primary</item>
+    </style>
+
+    <style name="TheCorner.Text.Body">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/text_primary</item>
+    </style>
+
+    <style name="TheCorner.Text.SecondaryBody">
+        <item name="android:textSize">13sp</item>
+        <item name="android:textColor">@color/text_secondary</item>
+    </style>
+
+    <style name="TheCorner.Text.Label">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/text_secondary</item>
+    </style>
+
+    <style name="TheCorner.Text.Caption">
+        <item name="android:fontFamily">monospace</item>
+        <item name="android:letterSpacing">0.1</item>
+        <item name="android:textSize">10sp</item>
+        <item name="android:textColor">@color/text_secondary</item>
+    </style>
+
+    <style name="TheCorner.Text.Button">
+        <item name="android:fontFamily">sans-serif-condensed</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TheCorner.Button.Primary" parent="TheCorner.Text.Button">
+        <item name="android:layout_height">56dp</item>
+        <item name="android:minHeight">48dp</item>
+        <item name="android:minWidth">48dp</item>
+        <item name="android:paddingStart">@dimen/space_4</item>
+        <item name="android:paddingEnd">@dimen/space_4</item>
+        <item name="android:background">@drawable/bg_button_primary</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:foreground">?attr/selectableItemBackground</item>
+    </style>
+
+    <style name="TheCorner.Button.Primary.White" parent="TheCorner.Button.Primary">
+        <item name="android:background">@drawable/bg_button_primary_light</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="TheCorner.Button.Secondary" parent="TheCorner.Text.Button">
+        <item name="android:layout_height">56dp</item>
+        <item name="android:minHeight">48dp</item>
+        <item name="android:minWidth">48dp</item>
+        <item name="android:paddingStart">@dimen/space_4</item>
+        <item name="android:paddingEnd">@dimen/space_4</item>
+        <item name="android:background">@drawable/bg_button_secondary</item>
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:foreground">?attr/selectableItemBackground</item>
+    </style>
+
+    <style name="TheCorner.Button.Text" parent="TheCorner.Text.Button">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:minHeight">48dp</item>
+        <item name="android:minWidth">48dp</item>
+        <item name="android:paddingStart">@dimen/space_2</item>
+        <item name="android:paddingEnd">@dimen/space_2</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:textColor">@color/accent_red</item>
+    </style>
+
+    <style name="TheCorner.Button.Icon">
+        <item name="android:layout_width">48dp</item>
+        <item name="android:layout_height">48dp</item>
+        <item name="android:minWidth">48dp</item>
+        <item name="android:minHeight">48dp</item>
+        <item name="android:padding">12dp</item>
+        <item name="android:background">?attr/selectableItemBackgroundBorderless</item>
+    </style>
+
+    <!-- MaterialButton implementation variants of the same semantic button roles. -->
+    <style name="TheCorner.Button.Material" parent="Widget.Material3.Button">
+        <item name="android:layout_height">56dp</item>
+        <item name="android:minHeight">48dp</item>
+        <item name="android:minWidth">48dp</item>
+        <item name="android:fontFamily">sans-serif-condensed</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="cornerRadius">@dimen/radius_medium</item>
+        <item name="iconSize">24dp</item>
+    </style>
+
+    <style name="TheCorner.Button.Material.Primary" parent="TheCorner.Button.Material">
+        <item name="backgroundTint">@color/accent_red</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="TheCorner.Button.Material.Primary.White" parent="TheCorner.Button.Material.Primary">
+        <item name="backgroundTint">@color/white</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="TheCorner.Button.Material.Secondary" parent="TheCorner.Button.Material">
+        <item name="backgroundTint">@color/surface</item>
+        <item name="strokeColor">@color/border</item>
+        <item name="strokeWidth">1dp</item>
+        <item name="android:textColor">@color/text_primary</item>
+    </style>
+
+    <!-- Shared compact metric-card treatment used by the Home dashboard. -->
+    <style name="TheCorner.Card.Dense">
+        <item name="android:minHeight">88dp</item>
+        <item name="cardBackgroundColor">@color/surface</item>
+        <item name="cardCornerRadius">@dimen/radius_large</item>
+        <item name="cardElevation">0dp</item>
+        <item name="strokeColor">@color/corner_card_border</item>
+        <item name="strokeWidth">1dp</item>
+    </style>
+</resources>

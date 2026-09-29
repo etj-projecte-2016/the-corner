@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.thecorner.R
 import com.example.thecorner.databinding.FragmentEditWorkoutBinding
+import com.example.thecorner.ui.addTopInsetToLayoutMargin
 import com.example.thecorner.model.WorkoutConfig
 import com.example.thecorner.model.WorkoutType
 import com.example.thecorner.ui.training.WorkoutConfigContract
@@ -43,6 +44,7 @@ class EditWorkoutFragment : Fragment() {
         savedInstanceState: Bundle?
     ) {
         super.onViewCreated(view, savedInstanceState)
+        binding.topAppBar.addTopInsetToLayoutMargin()
 
         viewModel.initialize(arguments)
         binding.workoutTypeGroup.setOnCheckedChangeListener { _, checkedId ->

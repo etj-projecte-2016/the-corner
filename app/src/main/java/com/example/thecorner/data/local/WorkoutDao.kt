@@ -21,4 +21,7 @@ interface WorkoutDao {
     @Query("SELECT * FROM workouts WHERE id = :id LIMIT 1")
     fun getWorkoutById(id: Long): Flow<WorkoutEntity?>
 
+    @Query("DELETE FROM workouts WHERE id IN (:ids)")
+    suspend fun deleteWorkoutsById(ids: List<Long>)
+
 }

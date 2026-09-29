@@ -7,11 +7,14 @@ sealed interface AIResult<out T> {
 }
 
 sealed interface AIError {
+    data object NotConfigured : AIError
     data object Network : AIError
     data object Timeout : AIError
     data object RateLimited : AIError
     data object ServiceUnavailable : AIError
     data object Authentication : AIError
     data object Safety : AIError
+    data object NoWorkout : AIError
+    data object InvalidResponse : AIError
     data object Unknown : AIError
 }

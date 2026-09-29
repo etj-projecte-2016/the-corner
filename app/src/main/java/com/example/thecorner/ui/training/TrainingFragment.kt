@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.thecorner.R
 import com.example.thecorner.databinding.FragmentTrainingBinding
+import com.example.thecorner.ui.applyTopSystemBarInset
 
 class TrainingFragment : Fragment() {
 
@@ -54,6 +55,7 @@ class TrainingFragment : Fragment() {
         setupWorkoutConfigResult()
         setupEditSessionButton()
         setupStartWorkoutButton()
+        binding.root.getChildAt(0)?.applyTopSystemBarInset()
 
         viewModel.config.observe(viewLifecycleOwner) { updateWorkoutUi() }
     }

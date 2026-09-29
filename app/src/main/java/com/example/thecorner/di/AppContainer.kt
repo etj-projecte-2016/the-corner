@@ -5,7 +5,7 @@ import com.example.thecorner.data.local.DatabaseProvider
 import com.example.thecorner.data.repository.ProfileRepository
 import com.example.thecorner.data.repository.WorkoutRepository
 import com.example.thecorner.ui.ai.AIService
-import com.example.thecorner.ui.ai.FirebaseAiService
+import com.example.thecorner.ui.ai.GroqAiService
 
 class AppContainer(context: Context) {
     private val database = DatabaseProvider.getDatabase(context)
@@ -19,6 +19,6 @@ class AppContainer(context: Context) {
     }
 
     val aiService: AIService by lazy {
-        FirebaseAiService()
+        GroqAiService()
     }
 }

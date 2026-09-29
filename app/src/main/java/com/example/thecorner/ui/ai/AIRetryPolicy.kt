@@ -3,13 +3,18 @@ package com.example.thecorner.ui.ai
 import kotlinx.coroutines.delay
 
 object AIRetryPolicy {
+    private val retryDelays = longArrayOf(2_000L, 5_000L)
+
     fun isRetryable(error: AIError): Boolean = when (error) {
         AIError.Timeout,
-        AIError.RateLimited,
-        AIError.ServiceUnavailable -> true
         AIError.Network,
+        AIError.ServiceUnavailable -> true
+        AIError.RateLimited,
         AIError.Authentication,
+        AIError.NotConfigured,
         AIError.Safety,
+        AIError.NoWorkout,
+        AIError.InvalidResponse,
         AIError.Unknown -> false
     }
 
@@ -17,6 +22,7 @@ object AIRetryPolicy {
         config: AIConfig,
         operation: suspend () -> AIResult<T>,
         onRetry: (retryNumber: Int, error: AIError) -> Unit = { _, _ -> },
+        wait: suspend (delayMs: Long) -> Unit = { delay(it) },
     ): AIResult<T> {
         var retries = 0
 
@@ -30,8 +36,7 @@ object AIRetryPolicy {
 
                     retries++
                     onRetry(retries, result.error)
-                    val multiplier = 1L shl (retries - 1).coerceAtMost(30)
-                    delay(config.initialBackoff * multiplier)
+                    wait(retryDelays[retries - 1])
                 }
             }
         }

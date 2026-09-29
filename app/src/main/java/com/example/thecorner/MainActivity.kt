@@ -3,25 +3,71 @@ package com.example.thecorner
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.isVisible
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.navOptions
 import androidx.navigation.fragment.NavHostFragment
+import com.example.thecorner.TheCornerApplication
 import com.example.thecorner.databinding.ActivityMainBinding
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        installSplashScreen()
+        var onboardingResolved = false
+        installSplashScreen().setKeepOnScreenCondition { !onboardingResolved }
         super.onCreate(savedInstanceState)
+
+        // One edge-to-edge policy for the whole app. Foreground content opts in
+        // to safe areas below; artwork is allowed to remain behind system bars.
+        WindowCompat.enableEdgeToEdge(window)
+        window.isNavigationBarContrastEnforced = false
+        WindowCompat.getInsetsController(window, window.decorView).apply {
+            isAppearanceLightStatusBars = false
+            isAppearanceLightNavigationBars = false
+        }
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        var safeBottomInset = 0
+        ViewCompat.setOnApplyWindowInsetsListener(binding.navHostFragment) { _, insets ->
+            safeBottomInset = insets.getInsets(
+                WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.displayCutout()
+            ).bottom
+            updateNavHostBottomInset(safeBottomInset)
+            insets
+        }
 
         val navHostFragment =
             supportFragmentManager
                 .findFragmentById(R.id.nav_host_fragment) as NavHostFragment
 
         val navController = navHostFragment.navController
+
+        lifecycleScope.launch {
+            val onboardingCompleted = runCatching {
+                (application as TheCornerApplication)
+                    .appContainer.profileRepository.onboardingCompleted.first()
+            }.getOrDefault(false)
+
+            if (!onboardingCompleted && savedInstanceState == null) {
+                navController.navigate(
+                    R.id.welcomeFragment,
+                    null,
+                    navOptions {
+                        popUpTo(R.id.homeFragment) { inclusive = true }
+                    }
+                )
+            }
+            onboardingResolved = true
+        }
 
 
         // =========================================================
@@ -79,6 +125,15 @@ class MainActivity : AppCompatActivity() {
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
 
+            binding.bottomNavigation.isVisible = destination.id in setOf(
+                R.id.homeFragment,
+                R.id.trainingFragment,
+                R.id.aiFragment,
+                R.id.profileFragment,
+                R.id.editWorkoutFragment
+            )
+            updateNavHostBottomInset(safeBottomInset)
+
             when (destination.id) {
 
                 R.id.homeFragment -> {
@@ -120,5 +175,27 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    /**
+     * BottomNavigationView owns its own system navigation area. When it is
+     * hidden, normal screens receive that safe area through the nav host;
+     * immersive screens protect their foreground content themselves.
+     */
+    private fun updateNavHostBottomInset(safeBottomInset: Int) {
+        val destinationId =
+            (supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as? NavHostFragment)
+                ?.navController
+                ?.currentDestination
+                ?.id
+        val bottomNavigationVisible = binding.bottomNavigation.isVisible
+        val cinematic = destinationId == R.id.welcomeFragment ||
+            destinationId == R.id.workoutSessionFragment
+        binding.navHostFragment.setPadding(
+            binding.navHostFragment.paddingLeft,
+            binding.navHostFragment.paddingTop,
+            binding.navHostFragment.paddingRight,
+            if (!bottomNavigationVisible && !cinematic) safeBottomInset else 0,
+        )
     }
 }

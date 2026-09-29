@@ -78,7 +78,7 @@
 
     <!-- Edit workout -->
     <string name="edit_workout_title">Edit session</string>
-    <string name="edit_save">Save</string>
+    <string name="edit_save">SAVE</string>
     <string name="edit_close">×</string>
 
     <string name="edit_round_duration">Round duration</string>
@@ -93,13 +93,35 @@
     <string name="edit_legend_rest">Rest</string>
     <!-- Workout completion -->
     <string name="session_complete">WORKOUT COMPLETE</string>
+    <string name="session_workout">WORKOUT</string>
     <string name="session_ended">WORKOUT ENDED</string>
     <string name="session_not_saved">SESSION NOT SAVED</string>
     <string name="session_saving">SAVING…</string>
     <string name="session_save_failed">SAVE FAILED — RETRY</string>
     <string name="session_retry">RETRY SAVE</string>
     <string name="session_finish">FINISH</string>
+    <string name="session_done">DONE</string>
     <string name="session_rounds">%1$d ROUNDS</string>
+    <string name="session_duration">DURATION</string>
+    <string name="session_rounds_label">ROUNDS</string>
+    <string name="session_calories_label">KCAL</string>
+    <string name="session_rounds_breakdown">ROUNDS BREAKDOWN</string>
+    <string name="session_round_short">R%1$d</string>
+    <string name="session_no_rounds_completed">NO ROUNDS COMPLETED</string>
+    <string name="session_no_rounds_planned">NO ROUNDS PLANNED</string>
+    <string name="session_round_not_completed">--:--</string>
+    <string name="session_get_ready">GET READY</string>
+    <string name="session_fight">FIGHT</string>
+    <string name="session_round">ROUND</string>
+    <string name="session_rest">REST</string>
+    <string name="session_next">NEXT</string>
+    <string name="session_paused">PAUSED</string>
+    <string name="session_pause">PAUSE</string>
+    <string name="session_resume">RESUME</string>
+    <string name="session_end_workout">END WORKOUT</string>
+    <string name="session_complete_short">COMPLETE</string>
+    <string name="session_next_round">ROUND %1$d</string>
+    <string name="session_next_duration">· %1$s</string>
     <string name="workout_type">Workout type</string>
     <string name="workout_type_bag">Bag work</string>
     <string name="workout_type_pad">Pad work</string>
@@ -107,6 +129,10 @@
     <string name="workout_type_shadow">Shadow boxing</string>
 
     <string name="profile_logo">The Corner logo</string>
+    <string name="profile_brand">THE
+CORNER</string>
+    <string name="profile_brand_subtitle">BOXING. TRACK. PROGRESS.</string>
+    <string name="profile_default_name">ERIC</string>
     <string name="profile_title">THE CORNER</string>
     <string name="profile_section">BOXER PROFILE</string>
     <string name="profile_name">NAME</string>
@@ -119,6 +145,9 @@
     <string name="profile_empty_value">—</string>
     <string name="profile_calorie_note">USED FOR
 CALORIE ESTIMATES</string>
+    <string name="profile_debug_seed_workouts">DEV: Seed workout history</string>
+    <string name="profile_debug_clear_workouts">DEV: Clear seeded workouts</string>
+    <string name="profile_debug_unavailable">Debug seeder unavailable</string>
     <string name="profile_edit">EDIT PROFILE</string>
     <string name="profile_edit_title">EDIT PROFILE</string>
     <string name="profile_back">Back</string>
@@ -132,17 +161,72 @@ CALORIE ESTIMATES</string>
     <string name="profile_weight_error">Enter a weight from 30 to 250 kg</string>
     <string name="profile_height_error">Enter a height from 120 to 230 cm</string>
     <string name="ai_title">THE CORNER AI</string>
-    <string name="ai_subtitle">FIREBASE AI LOGIC TEST</string>
+    <string name="ai_subtitle">LAST SESSION ANALYSIS</string>
     <string name="ai_status_label">Status</string>
     <string name="ai_status_ready">Ready</string>
     <string name="ai_status_generating">Generating</string>
     <string name="ai_status_error">Error</string>
     <string name="ai_check_button">RUN CLOUD AI TEST</string>
+    <string name="ai_analyze_last_session">ANALYZE MY LAST SESSION</string>
+    <string name="ai_analysis_positives">POSITIVES</string>
+    <string name="ai_analysis_improvements">IMPROVEMENTS</string>
+    <string name="ai_analysis_next_focus">NEXT SESSION FOCUS</string>
     <string name="ai_error_network">We could not connect to the AI service. Check your connection and try again.</string>
     <string name="ai_error_timeout">The AI service took too long to respond. Try again.</string>
-    <string name="ai_error_rate_limited">The AI service is busy right now. Please try again shortly.</string>
+    <string name="ai_error_rate_limited">AI request limit reached. Try again in a moment.</string>
     <string name="ai_error_service_unavailable">The AI service is temporarily unavailable. Please try again shortly.</string>
     <string name="ai_error_configuration">The AI service is not available in this build configuration.</string>
+    <string name="ai_error_not_configured">AI analysis is not configured for this build.</string>
     <string name="ai_error_safety">The AI service could not process this request.</string>
+    <string name="ai_error_no_workout">There is no completed workout to analyze yet.</string>
+    <string name="ai_error_invalid_response">The AI returned an invalid analysis. Please try again.</string>
     <string name="ai_error_unknown">Something went wrong while contacting the AI service.</string>
+    <string name="ai_coach_title">AI COACH</string>
+    <string name="ai_back">Back</string>
+    <string name="ai_coach_take">COACH\'S TAKE</string>
+    <string name="ai_what_went_well">WHAT WENT WELL</string>
+    <string name="ai_what_to_improve">WHAT TO IMPROVE</string>
+    <string name="ai_next_session_focus">NEXT SESSION FOCUS</string>
+    <string name="ai_stat_rounds">ROUNDS</string>
+    <string name="ai_stat_total">TOTAL</string>
+    <string name="ai_stat_calories">CAL EST.</string>
+    <string name="ai_minutes_value">%1$d MIN</string>
+    <string name="ai_your_last_session">YOUR LAST SESSION</string>
+    <string name="ai_ready_for_analysis">READY FOR YOUR ANALYSIS</string>
+    <string name="ai_ready_body">Get coaching feedback based on your latest boxing session.</string>
+    <string name="ai_ready_detail">I’ll look at your session structure, work-to-rest balance and training focus to help you improve.</string>
+    <string name="ai_analyze_session">ANALYZE SESSION</string>
+    <string name="ai_no_session_title">NO SESSION TO ANALYZE</string>
+    <string name="ai_no_session_body">Complete your first workout to get AI coaching feedback.</string>
+    <string name="ai_unavailable_title">AI ANALYSIS\nUNAVAILABLE</string>
+    <string name="ai_unavailable_body">AI analysis is available in development builds.\n\nThis portfolio release does not include API credentials.</string>
+    <string name="ai_powered_by_groq">POWERED BY GROQ</string>
+    <string name="ai_how_it_works">HOW IT WORKS</string>
+    <string name="ai_how_it_works_intro">AI Coach uses the data from your workouts to give you clear, practical boxing-specific feedback.</string>
+    <string name="ai_how_row_session_title">ANALYSES YOUR SESSION</string>
+    <string name="ai_how_row_session_body">Looks at your rounds, duration, rest periods and type of training.</string>
+    <string name="ai_how_row_feedback_title">GIVES YOU FEEDBACK</string>
+    <string name="ai_how_row_feedback_body">Highlights what went well and where you can improve based on your session structure.</string>
+    <string name="ai_how_row_plan_title">HELPS YOU PLAN AHEAD</string>
+    <string name="ai_how_row_plan_body">Suggests a concrete focus for your next workout.</string>
+    <string name="ai_how_limits_title">KNOW ITS LIMITS</string>
+    <string name="ai_how_limits_body">AI Coach only knows what The Corner records. It can\'t measure your technique, punch power, accuracy, heart rate or actual fatigue unless that data is available.</string>
+    <string name="ai_how_works_back">Back</string>
+    <string name="ai_how_works_card_title">See how it works</string>
+    <string name="ai_how_works_card_body">What the analysis includes</string>
+    <string name="onboarding_boxing_background">Boxing training</string>
+    <string name="onboarding_subtitle">TRAIN. TRACK. IMPROVE.</string>
+    <string name="onboarding_supporting_copy">Your training.
+Your rounds.
+Your progress.</string>
+    <string name="onboarding_get_started">GET STARTED →</string>
+    <string name="onboarding_back">Back</string>
+    <string name="onboarding_setup_title">LET’S SET UP</string>
+    <string name="onboarding_setup_corner">YOUR CORNER</string>
+    <string name="onboarding_setup_subtitle">A few details to personalize
+your experience.</string>
+    <string name="onboarding_profile_note">You can change these anytime in Profile.</string>
+    <string name="onboarding_enter_corner">ENTER THE CORNER →</string>
+    <string name="profile_weight_positive_error">Enter a positive weight</string>
+    <string name="profile_height_positive_error">Enter a positive height</string>
 </resources>

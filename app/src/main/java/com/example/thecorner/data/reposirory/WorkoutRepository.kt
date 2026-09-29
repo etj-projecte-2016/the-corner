@@ -29,4 +29,8 @@ class WorkoutRepository(
 
     fun getWorkoutById(id: Long): Flow<Workout?> =
         workoutDao.getWorkoutById(id).map { it?.toDomain() }
+
+    suspend fun deleteWorkoutsById(ids: List<Long>) {
+        if (ids.isNotEmpty()) workoutDao.deleteWorkoutsById(ids)
+    }
 }

@@ -6,6 +6,22 @@
     app:startDestination="@id/homeFragment">
 
     <fragment
+        android:id="@+id/welcomeFragment"
+        android:name="com.example.thecorner.ui.onboarding.WelcomeFragment"
+        android:label="Welcome"
+        tools:layout="@layout/fragment_welcome">
+        <action
+            android:id="@+id/action_welcome_to_profileSetup"
+            app:destination="@id/profileSetupFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/profileSetupFragment"
+        android:name="com.example.thecorner.ui.onboarding.ProfileSetupFragment"
+        android:label="Profile Setup"
+        tools:layout="@layout/fragment_profile_setup" />
+
+    <fragment
         android:id="@+id/homeFragment"
         android:name="com.example.thecorner.ui.home.HomeFragment"
         android:label="Home"
@@ -66,7 +82,17 @@
         android:id="@+id/aiFragment"
         android:name="com.example.thecorner.ui.ai.AiFragment"
         android:label="AI"
-        tools:layout="@layout/fragment_ai" />
+        tools:layout="@layout/fragment_ai">
+        <action
+            android:id="@+id/action_aiFragment_to_aiHowItWorksFragment"
+            app:destination="@id/aiHowItWorksFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/aiHowItWorksFragment"
+        android:name="com.example.thecorner.ui.ai.AiHowItWorksFragment"
+        android:label="AI Coach"
+        tools:layout="@layout/fragment_ai_how_it_works" />
 
     <fragment
         android:id="@+id/profileFragment"

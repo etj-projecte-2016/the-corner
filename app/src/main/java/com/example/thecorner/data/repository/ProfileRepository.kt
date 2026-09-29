@@ -9,6 +9,9 @@ class ProfileRepository(context: Context) {
     private val dataStore = ProfileDataStore(context.applicationContext)
 
     val profile: Flow<UserProfile> = dataStore.profile
+    val onboardingCompleted: Flow<Boolean> = dataStore.onboardingCompleted
 
     suspend fun save(profile: UserProfile) = dataStore.save(profile)
+
+    suspend fun completeOnboarding(profile: UserProfile) = dataStore.completeOnboarding(profile)
 }

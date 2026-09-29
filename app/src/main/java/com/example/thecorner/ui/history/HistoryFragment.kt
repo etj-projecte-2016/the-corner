@@ -19,6 +19,7 @@ import com.example.thecorner.R
 import com.example.thecorner.TheCornerApplication
 import com.example.thecorner.databinding.FragmentHistoryBinding
 import com.example.thecorner.model.WorkoutType
+import com.example.thecorner.ui.applyTopSystemBarInset
 import kotlinx.coroutines.launch
 import java.text.NumberFormat
 import kotlin.math.roundToLong
@@ -39,6 +40,7 @@ class HistoryFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        binding.root.applyTopSystemBarInset()
         val adapter = HistoryAdapter { id ->
             findNavController().navigate(R.id.action_history_to_details, Bundle().apply { putLong("sessionId", id) })
         }

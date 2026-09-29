@@ -17,6 +17,7 @@ import com.example.thecorner.R
 import com.example.thecorner.TheCornerApplication
 import com.example.thecorner.databinding.FragmentSessionDetailsBinding
 import com.example.thecorner.model.WorkoutEnergyDefaults
+import com.example.thecorner.ui.applyTopSystemBarInset
 import kotlinx.coroutines.launch
 import java.text.NumberFormat
 import kotlin.math.roundToInt
@@ -37,6 +38,7 @@ class SessionDetailsFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        binding.root.applyTopSystemBarInset()
         binding.back.setOnClickListener { findNavController().navigateUp() }
         binding.retry.setOnClickListener { viewModel.retry() }
         requireActivity().findViewById<View>(R.id.bottomNavigation).apply {

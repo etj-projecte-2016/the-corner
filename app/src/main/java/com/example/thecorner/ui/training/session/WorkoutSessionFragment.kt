@@ -18,6 +18,10 @@ import androidx.navigation.fragment.findNavController
 import com.example.thecorner.R
 import com.example.thecorner.ui.training.WorkoutConfigContract
 import com.example.thecorner.databinding.FragmentWorkoutSessionBinding
+import com.example.thecorner.ui.applyTopAndBottomSystemBarInsets
+import com.example.thecorner.model.Workout
+import com.example.thecorner.model.WorkoutType
+import java.util.Locale
 
 class WorkoutSessionFragment : Fragment() {
 
@@ -51,6 +55,7 @@ class WorkoutSessionFragment : Fragment() {
         savedInstanceState: Bundle?
     ) {
         super.onViewCreated(view, savedInstanceState)
+        binding.sessionContent.applyTopAndBottomSystemBarInsets()
 
         val config = WorkoutConfigContract.fromBundle(arguments)
         if (config == null) {
@@ -298,11 +303,13 @@ class WorkoutSessionFragment : Fragment() {
         binding.tvCountdownMain.visibility =
             View.VISIBLE
 
-        binding.tvCountdownMain.text =
-            "FIGHT!"
+        binding.tvCountdownMain.setText(R.string.session_fight)
 
         binding.tvCountdownMain.textSize =
-            150f
+            64f
+
+        binding.tvCountdownMain.letterSpacing =
+            0.04f
 
         binding.tvCountdownMain.setTextColor(
             ContextCompat.getColor(
@@ -406,8 +413,7 @@ class WorkoutSessionFragment : Fragment() {
         binding.tvSessionTimer.textSize =
             150f
 
-        binding.tvSessionPhase.text =
-            "ROUND"
+        binding.tvSessionPhase.setText(R.string.session_round)
 
         binding.tvSessionPhase.setTextColor(
             ContextCompat.getColor(
@@ -449,8 +455,7 @@ class WorkoutSessionFragment : Fragment() {
             binding.nextPhaseContainer.visibility =
                 View.VISIBLE
 
-            binding.tvNextPhaseName.text =
-                "REST"
+            binding.tvNextPhaseName.setText(R.string.session_rest)
 
             binding.tvNextPhaseName.setTextColor(
                 ContextCompat.getColor(
@@ -459,8 +464,10 @@ class WorkoutSessionFragment : Fragment() {
                 )
             )
 
-            binding.tvNextPhaseDuration.text =
-                "· ${formatTime(state.restDurationSeconds)}"
+        binding.tvNextPhaseDuration.text = getString(
+            R.string.session_next_duration,
+            formatTime(state.restDurationSeconds)
+        )
 
         } else {
 
@@ -492,14 +499,12 @@ class WorkoutSessionFragment : Fragment() {
 
         restoreNormalSessionUi()
 
-        binding.tvRoundLabel.text =
-            "ROUND"
+        binding.tvRoundLabel.setText(R.string.session_round)
 
         binding.tvCurrentRound.text =
             state.currentRound.toString()
 
-        binding.tvTotalRounds.text =
-            "COMPLETE"
+        binding.tvTotalRounds.setText(R.string.session_complete_short)
 
         binding.tvCurrentRound.visibility =
             View.VISIBLE
@@ -533,8 +538,7 @@ class WorkoutSessionFragment : Fragment() {
         )
 
 
-        binding.tvSessionPhase.text =
-            "REST"
+        binding.tvSessionPhase.setText(R.string.session_rest)
 
         binding.tvSessionPhase.setTextColor(
             restColor
@@ -547,8 +551,10 @@ class WorkoutSessionFragment : Fragment() {
         binding.nextPhaseContainer.visibility =
             View.VISIBLE
 
-        binding.tvNextPhaseName.text =
-            "ROUND ${state.currentRound + 1}"
+        binding.tvNextPhaseName.text = getString(
+            R.string.session_next_round,
+            state.currentRound + 1
+        )
 
         binding.tvNextPhaseName.setTextColor(
             ContextCompat.getColor(
@@ -557,8 +563,10 @@ class WorkoutSessionFragment : Fragment() {
             )
         )
 
-        binding.tvNextPhaseDuration.text =
-            "· ${formatTime(state.roundDurationSeconds)}"
+        binding.tvNextPhaseDuration.text = getString(
+            R.string.session_next_duration,
+            formatTime(state.roundDurationSeconds)
+        )
 
         updatePauseButton(state)
         updateTimeline(state)
@@ -586,8 +594,7 @@ class WorkoutSessionFragment : Fragment() {
         binding.tvTotalRounds.visibility =
             View.VISIBLE
 
-        binding.tvRoundLabel.text =
-            "ROUND"
+        binding.tvRoundLabel.setText(R.string.session_round)
 
         binding.tvRoundLabel.setTextColor(
             ContextCompat.getColor(
@@ -631,8 +638,7 @@ class WorkoutSessionFragment : Fragment() {
             binding.tvPaused.visibility =
                 View.VISIBLE
 
-            binding.btnPauseWorkout.text =
-                "RESUME"
+            binding.btnPauseWorkout.setText(R.string.session_resume)
 
             binding.btnPauseWorkout.setIconResource(
                 R.drawable.ic_play
@@ -643,8 +649,7 @@ class WorkoutSessionFragment : Fragment() {
             binding.tvPaused.visibility =
                 View.GONE
 
-            binding.btnPauseWorkout.text =
-                "PAUSE"
+            binding.btnPauseWorkout.setText(R.string.session_pause)
 
             binding.btnPauseWorkout.setIconResource(
                 R.drawable.ic_pause
@@ -927,78 +932,40 @@ class WorkoutSessionFragment : Fragment() {
         binding.ivSessionBackground.visibility =
             View.GONE
 
-        restoreNormalSessionUi()
+        hideNormalSessionUi()
 
-        binding.tvRoundLabel.setText(
-            if (state.saveStatus == WorkoutSessionViewModel.SaveStatus.NOT_REQUIRED) {
-                R.string.session_ended
-            } else {
-                R.string.session_complete
-            }
-        )
+        val workout = state.completedWorkout ?: return
 
-        binding.tvCurrentRound.visibility =
-            View.GONE
-
-        binding.tvTotalRounds.visibility =
-            View.GONE
-
-        binding.tvSessionTimer.text =
-            "✓"
-
-        binding.tvSessionTimer.textSize =
-            120f
-
-        binding.tvSessionTimer.setTextColor(
-            ContextCompat.getColor(
-                requireContext(),
-                R.color.corner_red
-            )
-        )
-
-        binding.tvSessionPhase.text = when (state.saveStatus) {
-            WorkoutSessionViewModel.SaveStatus.NOT_REQUIRED -> getString(R.string.session_not_saved)
-            WorkoutSessionViewModel.SaveStatus.SAVING -> getString(R.string.session_saving)
-            WorkoutSessionViewModel.SaveStatus.FAILED -> getString(R.string.session_save_failed)
-            WorkoutSessionViewModel.SaveStatus.SAVED -> getString(R.string.session_rounds, state.totalRounds)
-        }
-
-        binding.tvSessionPhase.setTextColor(
-            ContextCompat.getColor(
-                requireContext(),
-                R.color.corner_red
-            )
-        )
-
-        binding.roundTimelineContainer.visibility =
-            View.GONE
-
-        binding.tvNextLabel.visibility =
-            View.GONE
-
-        binding.nextPhaseContainer.visibility =
-            View.GONE
-
-        binding.tvPaused.visibility =
-            View.GONE
-
-        binding.btnPauseWorkout.visibility =
-            View.GONE
-
-        binding.btnEndWorkout.visibility =
+        binding.completedSummaryContainer.visibility =
             View.VISIBLE
 
-        binding.btnEndWorkout.isEnabled =
-            state.saveStatus != WorkoutSessionViewModel.SaveStatus.SAVING
-        binding.btnEndWorkout.setText(
-            when (state.saveStatus) {
-                WorkoutSessionViewModel.SaveStatus.SAVING -> R.string.session_saving
-                WorkoutSessionViewModel.SaveStatus.FAILED -> R.string.session_retry
-                else -> R.string.session_finish
-            }
+        binding.tvCompletedWorkoutType.text =
+            workoutTypeLabel(workout.workoutType)
+
+        binding.tvCompletedHeroWorkoutType.text =
+            workoutTypeLabel(workout.workoutType)
+
+        binding.tvCompletedDurationValue.text =
+            formatTime(workout.duration)
+
+        binding.tvCompletedRoundsValue.text =
+            workout.totalRounds.toString()
+
+        binding.tvCompletedCaloriesValue.text =
+            workout.calories.toString()
+
+        binding.tvCompletedBreakdownDuration.text =
+            formatTime(workout.duration)
+
+        populateCompletedRounds(
+            workout = workout,
+            plannedRounds = state.totalRounds
         )
 
-        binding.btnEndWorkout.setOnClickListener {
+        binding.btnCompletedDone.isEnabled =
+            state.saveStatus != WorkoutSessionViewModel.SaveStatus.SAVING
+
+        binding.btnCompletedDone.setOnClickListener {
             when (viewModel.state.value?.saveStatus) {
                 WorkoutSessionViewModel.SaveStatus.FAILED -> viewModel.retrySave()
                 WorkoutSessionViewModel.SaveStatus.SAVED,
@@ -1009,11 +976,173 @@ class WorkoutSessionFragment : Fragment() {
     }
 
 
+    private fun populateCompletedRounds(
+        workout: Workout,
+        plannedRounds: Int
+    ) {
+
+        binding.completedRoundBreakdownContainer.removeAllViews()
+
+        val roundDurationSeconds =
+            (workout.activeDurationSeconds ?: 0) /
+                    workout.totalRounds.coerceAtLeast(1)
+
+        val completedRounds = workout.totalRounds.coerceAtLeast(0)
+        val totalRounds = plannedRounds.coerceAtLeast(0)
+        if (totalRounds == 0) {
+            binding.completedRoundBreakdownContainer.addView(
+                TextView(requireContext()).apply {
+                    text = getString(R.string.session_no_rounds_planned)
+                    textSize = 13f
+                    setTextColor(
+                        ContextCompat.getColor(
+                            requireContext(),
+                            R.color.corner_text_secondary
+                        )
+                    )
+                    setPadding(0, dpToPx(8), 0, dpToPx(8))
+                }
+            )
+            return
+        }
+
+        val roundItemWidth = dpToPx(46)
+        val roundItemGap = dpToPx(6)
+        val contentWidth = roundItemWidth * totalRounds +
+                roundItemGap * (totalRounds - 1)
+
+        binding.completedRoundBreakdownContainer.gravity =
+            Gravity.CENTER_HORIZONTAL
+        binding.completedRoundsGrid.post {
+            val viewportWidth = binding.completedRoundsGrid.width.takeIf { it > 0 }
+                ?: (resources.displayMetrics.widthPixels - dpToPx(32))
+            val layoutParams =
+                binding.completedRoundBreakdownContainer.layoutParams
+            layoutParams.width = maxOf(viewportWidth, contentWidth)
+            binding.completedRoundBreakdownContainer.layoutParams = layoutParams
+        }
+
+        repeat(totalRounds) { index ->
+            val isCompleted = index < completedRounds
+            binding.completedRoundBreakdownContainer.addView(
+                LinearLayout(requireContext()).apply {
+                    layoutParams = LinearLayout.LayoutParams(
+                        roundItemWidth,
+                        LinearLayout.LayoutParams.WRAP_CONTENT
+                    ).apply {
+                        marginEnd = if (index == totalRounds - 1) {
+                            0
+                        } else {
+                            roundItemGap
+                        }
+                    }
+                    orientation = LinearLayout.VERTICAL
+                    gravity = Gravity.CENTER_HORIZONTAL
+
+                    addView(TextView(requireContext()).apply {
+                        text = if (isCompleted) {
+                            formatTime(roundDurationSeconds)
+                        } else {
+                            getString(R.string.session_round_not_completed)
+                        }
+                        textSize = 11f
+                        setTextColor(
+                            ContextCompat.getColor(
+                                requireContext(),
+                                if (isCompleted) {
+                                    R.color.corner_text_primary
+                                } else {
+                                    R.color.corner_text_secondary
+                                }
+                            )
+                        )
+                        typeface = android.graphics.Typeface.MONOSPACE
+                    })
+
+                    addView(View(requireContext()).apply {
+                        layoutParams = LinearLayout.LayoutParams(
+                            dpToPx(30),
+                            dpToPx(40)
+                        ).apply {
+                            topMargin = dpToPx(6)
+                            bottomMargin = dpToPx(6)
+                        }
+                        background = GradientDrawable().apply {
+                            shape = GradientDrawable.RECTANGLE
+                            cornerRadius = dpToPx(4).toFloat()
+                            if (isCompleted) {
+                                setColor(
+                                    ContextCompat.getColor(
+                                        requireContext(),
+                                        R.color.corner_red
+                                    )
+                                )
+                            } else {
+                                setColor(
+                                    ContextCompat.getColor(
+                                        requireContext(),
+                                        R.color.corner_surface_variant
+                                    )
+                                )
+                                setStroke(
+                                    dpToPx(1),
+                                    ContextCompat.getColor(
+                                        requireContext(),
+                                        R.color.corner_outline
+                                    )
+                                )
+                            }
+                        }
+                    })
+
+                    addView(TextView(requireContext()).apply {
+                        text = getString(R.string.session_round_short, index + 1)
+                        textSize = 11f
+                        setTextColor(
+                            ContextCompat.getColor(
+                                requireContext(),
+                                if (isCompleted) {
+                                    R.color.corner_text_primary
+                                } else {
+                                    R.color.corner_text_secondary
+                                }
+                            )
+                        )
+                        typeface = android.graphics.Typeface.create(
+                            "sans-serif-condensed",
+                            android.graphics.Typeface.BOLD
+                        )
+                    })
+                }
+            )
+        }
+    }
+
+
+    private fun workoutTypeLabel(
+        workoutType: WorkoutType?
+    ): String {
+
+        val label = when (workoutType) {
+            WorkoutType.BAG_WORK -> R.string.workout_type_bag
+            WorkoutType.PAD_WORK -> R.string.workout_type_pad
+            WorkoutType.SPARRING -> R.string.workout_type_sparring
+            WorkoutType.SHADOW_BOXING -> R.string.workout_type_shadow
+            null -> R.string.workout_type
+        }
+
+        return getString(label).uppercase(Locale.ROOT)
+    }
+
+
     // ============================================================
     // VISIBILITY
     // ============================================================
 
     private fun hideNormalSessionUi() {
+
+        binding.completedSummaryContainer.visibility =
+            View.GONE
 
         binding.roundHeaderContainer.visibility =
             View.GONE
